@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/miladycolav4/' : '/',
+  base: '/',
   optimizeDeps: {
     include: [
       'ethers',
