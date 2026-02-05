@@ -1,6 +1,14 @@
 import { Component, h, eventBus } from '@monygroupcorp/microact';
 import { hasRevealBeenSeen, getStoredWinResult, storeWinResult, setRevealSeen, getStoredPassphrase } from './EntryModal.js';
 
+const SITE_URL = 'https://miladycola.net';
+
+function shareOnX(text, e) {
+  if (e) e.stopPropagation();
+  const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(SITE_URL)}`;
+  window.open(url, '_blank', 'noopener,width=550,height=420');
+}
+
 // Cache the bottle SVG template
 let bottleSvgTemplate = null;
 
@@ -173,14 +181,26 @@ class BottleCard extends Component {
     if (isWin) {
       return h('div', { className: 'bottle-visual-wrapper' },
         h('div', { className: 'bottle-color-circle', style: `background: ${color};` }),
-        h('img', { src: '/win.svg', alt: 'Winner', className: 'bottle-result-svg' })
+        h('img', { src: '/win.svg', alt: 'Winner', className: 'bottle-result-svg' }),
+        h('button', {
+          className: 'cap-share-btn cap-share-btn--win',
+          type: 'button',
+          onClick: (e) => shareOnX(`🎉 Won on @miladycola!\n\nZK-powered NFT challenge`, e),
+          title: 'Share on X',
+        }, '𝕏')
       );
     }
 
     if (isLoss) {
       return h('div', { className: 'bottle-visual-wrapper' },
         h('div', { className: 'bottle-color-circle', style: `background: ${color};` }),
-        h('img', { src: '/loss.svg', alt: 'No luck', className: 'bottle-result-svg' })
+        h('img', { src: '/loss.svg', alt: 'No luck', className: 'bottle-result-svg' }),
+        h('button', {
+          className: 'cap-share-btn cap-share-btn--loss',
+          type: 'button',
+          onClick: (e) => shareOnX(`Popped a @miladycola bottle... no luck 😔\n\nTry your luck`, e),
+          title: 'Share on X',
+        }, '𝕏')
       );
     }
 
