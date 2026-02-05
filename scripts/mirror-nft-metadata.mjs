@@ -27,6 +27,7 @@ const COLLECTIONS = {
         address: "0x5af0d9827e0c53e4799bb226655a1de152a425a5",
         metadataUrl: (id) => `https://www.miladymaker.net/milady/json/${id}`,
         imageUrl: (id) => `https://www.miladymaker.net/milady/${id}.png`,
+        startId: 0,
         maxSupply: 9999,
     },
     remilio: {
@@ -34,7 +35,8 @@ const COLLECTIONS = {
         address: "0xD3D9ddd0CF0A5F0BFB8f7fcEAe075DF687eAEBaB",
         metadataUrl: (id) => `https://remilio.org/remilio/json/${id}`,
         imageUrl: (id) => `https://remilio.org/remilio/${id}.png`,
-        maxSupply: 9999,
+        startId: 1,
+        maxSupply: 10000,
     },
     // Add more collections here as needed
 };
@@ -42,6 +44,7 @@ const COLLECTIONS = {
 const DEFAULT_OPTIONS = {
     collection: null,
     start: 0,
+    startOverridden: false, // Track if --start was explicitly provided
     end: null, // Will use collection's maxSupply if not specified
     concurrency: 8,
     outputBase: path.join(PROJECT_ROOT, "public", "collections"),
@@ -60,6 +63,7 @@ function parseArgs(argv) {
                 break;
             case "--start":
                 options.start = Number(value);
+                options.startOverridden = true;
                 break;
             case "--end":
                 options.end = Number(value);
@@ -144,7 +148,8 @@ async function mirrorCollection(collectionKey, options) {
     const outputDir = path.join(options.outputBase, collectionKey);
     await mkdir(outputDir, { recursive: true });
 
-    const start = options.start;
+    // Use collection's startId if options.start wasn't explicitly set (still 0)
+    const start = options.startOverridden ? options.start : (collection.startId ?? 0);
     const end = options.end ?? collection.maxSupply;
     const total = end - start + 1;
 
