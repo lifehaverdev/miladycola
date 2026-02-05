@@ -68,8 +68,14 @@ class ChallengeGrid extends Component {
           : h('div', { className: 'product-slot__placeholder' }, '?')
       ),
       h('div', { className: 'product-slot__price' },
-        h('div', { className: 'product-slot__price-value' }, `${challenge.appraisalEth} Ξ`),
-        h('div', { className: 'product-slot__price-label' }, 'Prize Value')
+        h('div', { className: 'product-slot__price-row' },
+          h('span', { className: 'product-slot__price-label' }, 'Appraisal'),
+          h('span', { className: 'product-slot__price-value' }, `${challenge.appraisalEth} Ξ`)
+        ),
+        h('div', { className: 'product-slot__price-row' },
+          h('span', { className: 'product-slot__price-label' }, 'Attempts'),
+          h('span', { className: 'product-slot__price-value product-slot__price-value--pot' }, `${challenge.potEth || '0'} Ξ`)
+        )
       )
     );
   }

@@ -267,16 +267,30 @@
     background: rgba(0, 0, 0, 0.6);
     border-radius: 4px;
     padding: 6px 8px;
-    text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.product-slot__price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
 }
 
 .product-slot__price-value {
     font-family: 'Space Grotesk', monospace;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--cola-warning);
     text-shadow: 0 0 10px rgba(255, 184, 0, 0.5);
+}
+
+.product-slot__price-value--pot {
+    color: var(--cola-success, #4ade80);
+    text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
 }
 
 .product-slot__price-label {
