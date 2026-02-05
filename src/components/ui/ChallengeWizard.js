@@ -6,6 +6,13 @@ import nftMetadataService from '../../services/NftMetadataService.js';
 
 const { isIpfsUri } = IpfsService;
 
+const SITE_URL = 'https://miladycola.net';
+
+function shareOnX(text) {
+  const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(SITE_URL)}`;
+  window.open(url, '_blank', 'noopener,width=550,height=420');
+}
+
 // Minimal ERC721 ABI for scanning collections
 const ERC721_ABI = [
   'function balanceOf(address owner) view returns (uint256)',
@@ -18,7 +25,7 @@ class ChallengeWizard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stage: 'contract', // contract, tokens, preview, appraisal, review, pending
+      stage: 'contract', // contract, tokens, preview, appraisal, review, pending, success
       scanning: false,
       scanningMessage: 'Scanning popular collections...',
       manualContract: '',
@@ -573,7 +580,7 @@ class ChallengeWizard extends Component {
           lore
         );
 
-        eventBus.emit('modal:close');
+        this.setState({ stage: 'success', createdTrialId: trialId });
         eventBus.emit('challenge:created', { trialId, nftContract, tokenId, appraisal, lore });
       } catch (error) {
         console.error('[ChallengeWizard] Failed to create challenge:', error);
@@ -952,6 +959,32 @@ class ChallengeWizard extends Component {
     );
   }
 
+  // Stage: success - share prompt
+  renderSuccessStage() {
+    const { selectedToken, appraisal } = this.state;
+    const tokenTitle = selectedToken?.title || 'NFT';
+
+    return h('section', { className: 'wizard-stage wizard-stage--success' },
+      h('div', { className: 'success-content' },
+        h('div', { className: 'success-icon' }, '🍾'),
+        h('h3', null, 'Challenge Created!'),
+        h('p', { className: 'muted' }, `Your ${tokenTitle} is now up for grabs at ${appraisal} ETH appraisal.`),
+        h('div', { className: 'success-actions' },
+          h('button', {
+            className: 'btn primary full share-btn',
+            type: 'button',
+            onClick: () => shareOnX(`Just stocked a prize on @miladycola! 🍾\n\nCan you win my ${tokenTitle}?\n\nZK-powered provably fair NFT challenge`),
+          }, '𝕏 Share Your Challenge'),
+          h('button', {
+            className: 'btn ghost full',
+            type: 'button',
+            onClick: this.handleClose,
+          }, 'Done')
+        )
+      )
+    );
+  }
+
   render() {
     const { stage, error } = this.state;
 
@@ -974,6 +1007,9 @@ class ChallengeWizard extends Component {
         break;
       case 'pending':
         stageContent = this.renderPendingStage();
+        break;
+      case 'success':
+        stageContent = this.renderSuccessStage();
         break;
     }
 

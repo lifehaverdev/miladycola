@@ -2,6 +2,13 @@ import { Component, h, eventBus } from '@monygroupcorp/microact';
 import { setRevealSeen, storeWinResult, getStoredPassphrase, storePassphrase } from './EntryModal.js';
 import cryptoService from '../../services/CryptoService.js';
 
+const SITE_URL = 'https://miladycola.net';
+
+function shareOnX(text) {
+  const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(SITE_URL)}`;
+  window.open(url, '_blank', 'noopener,width=550,height=420');
+}
+
 class RevealModal extends Component {
   constructor(props) {
     super(props);
@@ -245,6 +252,9 @@ class RevealModal extends Component {
 
     const showStartButton = phase === 'ready';
 
+    const isLoss = phase === 'result' && result === 'loss';
+    const isWin = phase === 'result' && result === 'win';
+
     return h('div', { className: 'reveal-modal__panel' },
       h('button', {
         className: 'icon-btn',
@@ -265,7 +275,17 @@ class RevealModal extends Component {
           className: 'btn ghost small',
           type: 'button',
           onClick: () => this.setState({ phase: 'needsPassphrase', manualPassphrase: '' }),
-        }, 'Use Different Passphrase')
+        }, 'Use Different Passphrase'),
+        isLoss && h('button', {
+          className: 'btn ghost share-btn',
+          type: 'button',
+          onClick: () => shareOnX(`Just popped a @miladycola bottle... no luck this time 😔\n\nTry your luck on NFT prizes with ZK proofs 🍾`),
+        }, '𝕏 Share the L'),
+        isWin && h('button', {
+          className: 'btn primary share-btn',
+          type: 'button',
+          onClick: () => shareOnX(`🎉 Just won a prize on @miladycola!\n\nZK-powered NFT challenge with real Ethereum beacon randomness 🍾`),
+        }, '𝕏 Share Your Win!')
       )
     );
   }

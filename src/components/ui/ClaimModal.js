@@ -1,6 +1,13 @@
 import { Component, h, eventBus } from '@monygroupcorp/microact';
 import { getStoredPassphrase } from './EntryModal.js';
 
+const SITE_URL = 'https://miladycola.net';
+
+function shareOnX(text) {
+  const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(SITE_URL)}`;
+  window.open(url, '_blank', 'noopener,width=550,height=420');
+}
+
 class ClaimModal extends Component {
   constructor(props) {
     super(props);
@@ -130,11 +137,18 @@ class ClaimModal extends Component {
         }),
 
         status === 'success'
-          ? h('button', {
-              className: 'btn primary full',
-              type: 'button',
-              onClick: this.handleClose,
-            }, 'Back to Dashboard')
+          ? h('div', { className: 'claim-success-actions' },
+              h('button', {
+                className: 'btn primary full share-btn',
+                type: 'button',
+                onClick: () => shareOnX(`🏆 Just claimed my NFT prize on @miladycola!\n\nZK-powered provably fair challenge using Ethereum beacon randomness 🍾`),
+              }, '𝕏 Share Your Victory!'),
+              h('button', {
+                className: 'btn ghost full',
+                type: 'button',
+                onClick: this.handleClose,
+              }, 'Back to Dashboard')
+            )
           : h('button', {
               className: 'btn primary full',
               type: 'button',
