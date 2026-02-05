@@ -1,0 +1,51 @@
+{
+  "description": "Milady Maker is a collection of 10,000 generative pfpNFT's in a neochibi aesthetic inspired by street style tribes.",
+  "image": "https://www.miladymaker.net/milady/620.png",
+  "name": "Milady 620",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "xp"
+    },
+    {
+      "trait_type": "Race",
+      "value": "pale"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "teary"
+    },
+    {
+      "trait_type": "Eye Color",
+      "value": "green"
+    },
+    {
+      "trait_type": "Shirt",
+      "value": "maid"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "bowl black"
+    },
+    {
+      "trait_type": "Earring",
+      "value": "chain earrings"
+    },
+    {
+      "trait_type": "Drip Score",
+      "value": "23"
+    },
+    {
+      "trait_type": "Core",
+      "value": "lolita"
+    },
+    {
+      "trait_type": "Drip Grade",
+      "value": "normal"
+    },
+    {
+      "trait_type": "Number",
+      "value": "620"
+    }
+  ]
+}

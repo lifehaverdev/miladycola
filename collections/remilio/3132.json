@@ -1,0 +1,71 @@
+{
+  "description": "Redacted Remilio Babies is a collection of 10,000 neochibi pfpNFT's expanding the Milady Maker paradigm with the introduction of young J.I.T. energy and schizophrenic reactionary aesthetics. We are #REMILIONAIREs.",
+  "name": "Remilio 3132",
+  "image": "https://remilio.org/remilio/3132.png",
+  "attributes": [
+    {
+      "value": "White",
+      "trait_type": "Race"
+    },
+    {
+      "value": "Honda NSX 1993",
+      "trait_type": "Background"
+    },
+    {
+      "value": "Blue",
+      "trait_type": "Eyes"
+    },
+    {
+      "value": "Notched",
+      "trait_type": "Eyebrow"
+    },
+    {
+      "value": "Charlie Grey",
+      "trait_type": "Hair"
+    },
+    {
+      "value": "China and America",
+      "trait_type": "Face"
+    },
+    {
+      "value": "College Sweater",
+      "trait_type": "Shirt"
+    },
+    {
+      "value": "Lollipop",
+      "trait_type": "Mouth"
+    },
+    {
+      "value": "Versace",
+      "trait_type": "Glasses"
+    },
+    {
+      "value": "DBZ Potara",
+      "trait_type": "Earrings"
+    },
+    {
+      "value": "Monster University",
+      "trait_type": "Hat"
+    },
+    {
+      "value": "Onno",
+      "trait_type": "Friend"
+    },
+    {
+      "value": "BABY-G Watch",
+      "trait_type": "Weapon"
+    },
+    {
+      "value": "Thumbnail",
+      "trait_type": "Overlays"
+    },
+    {
+      "trait_type": "Rank",
+      "value": "A"
+    },
+    {
+      "trait_type": "Swag Score",
+      "value": "143"
+    }
+  ]
+}

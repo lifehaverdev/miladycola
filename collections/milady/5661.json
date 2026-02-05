@@ -1,0 +1,56 @@
+{
+  "description": "[Milady Maker](https://www.miladymaker.net) is a collection of 10,000 generative pfpNFT's in a neochibi aesthetic inspired by Tokyo street style tribes.",
+  "external_url": "https://miladymaker.net",
+  "image": "https://miladymaker.net/milady/5661.png",
+  "name": "Milady 5661",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "sunrise"
+    },
+    {
+      "trait_type": "Race",
+      "value": "pink"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "dilated"
+    },
+    {
+      "trait_type": "Eye Color",
+      "value": "blue"
+    },
+    {
+      "trait_type": "Shirt",
+      "value": "blue pink shirt"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "bowl purple"
+    },
+    {
+      "trait_type": "Earring",
+      "value": "double safety pins"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "earflap cap"
+    },
+    {
+      "trait_type": "Drip Score",
+      "value": "30"
+    },
+    {
+      "trait_type": "Core",
+      "value": "lolita-prep"
+    },
+    {
+      "trait_type": "Drip Grade",
+      "value": "b-drip"
+    },
+    {
+      "trait_type": "Number",
+      "value": "5661"
+    }
+  ]
+}

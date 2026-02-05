@@ -1,0 +1,55 @@
+{
+  "description": "Redacted Remilio Babies is a collection of 10,000 neochibi pfpNFT's expanding the Milady Maker paradigm with the introduction of young J.I.T. energy and schizophrenic reactionary aesthetics. We are #REMILIONAIREs.",
+  "name": "Remilio 8345",
+  "image": "https://remilio.org/remilio/8345.png",
+  "attributes": [
+    {
+      "value": "White",
+      "trait_type": "Race"
+    },
+    {
+      "value": "Canal St Subway",
+      "trait_type": "Background"
+    },
+    {
+      "value": "Green",
+      "trait_type": "Eyes"
+    },
+    {
+      "value": "Normal",
+      "trait_type": "Eyebrow"
+    },
+    {
+      "value": "Aquarium Moss",
+      "trait_type": "Hair"
+    },
+    {
+      "value": "Sony Aquarium 2017",
+      "trait_type": "Shirt"
+    },
+    {
+      "value": "Smug",
+      "trait_type": "Mouth"
+    },
+    {
+      "value": "Tiny White",
+      "trait_type": "Glasses"
+    },
+    {
+      "value": "Mimogus",
+      "trait_type": "Friend"
+    },
+    {
+      "value": "Prison",
+      "trait_type": "Overlays"
+    },
+    {
+      "trait_type": "Rank",
+      "value": "B"
+    },
+    {
+      "trait_type": "Swag Score",
+      "value": "96"
+    }
+  ]
+}
