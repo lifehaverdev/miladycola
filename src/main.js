@@ -38,24 +38,21 @@ const INLINE_WALLET_ICONS = {
  * Falls back to null (fixture mode) if config not found.
  */
 async function loadContractConfig() {
-  // Determine which config file to load based on environment
   const network = import.meta.env.VITE_NETWORK || 'local';
-  const configFile = network === 'local'
-    ? 'contracts.json'
-    : `contracts-${network}.json`;
-
-  const configPath = `/src/generated/${configFile}`;
 
   try {
-    const response = await fetch(configPath);
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+    let config;
+    if (network === 'mainnet') {
+      config = (await import('./generated/contracts-mainnet.json')).default;
+    } else if (network === 'sepolia') {
+      config = (await import('./generated/contracts-sepolia.json')).default;
+    } else {
+      config = (await import('./generated/contracts.json')).default;
     }
-    const config = await response.json();
-    console.log(`[main] Loaded contract config from ${configFile} (network: ${network})`);
+    console.log(`[main] Loaded contract config for network: ${network}`);
     return config;
   } catch (error) {
-    console.warn(`[main] No contract config found at ${configPath}, using fixture mode:`, error.message);
+    console.warn(`[main] No contract config found for ${network}, using fixture mode:`, error.message);
     return null;
   }
 }
