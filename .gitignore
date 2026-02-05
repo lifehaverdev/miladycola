@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Anvil / Foundry cache
+.anvil-cache/
+cache/
+out/
+
+# Claude Code
+.claude/
+
+# Mirrored NFT metadata (built during deploy)
+public/collections/
+public/milady/
+
+# ZK artifacts that shouldn't be committed (large files)
+# Keep challenge.wasm and challenge_final.zkey as they're needed for the app
+# *.zkey
+# *.wasm
+
+# Logs
+*.log
+npm-debug.log*

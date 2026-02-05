@@ -1,0 +1,13 @@
+# Build artifacts
+cache/
+out/
+broadcast/
+
+# Dependencies (install with `forge install`)
+lib/
+
+# OS
+.DS_Store
+
+# Foundry lock
+foundry.lock

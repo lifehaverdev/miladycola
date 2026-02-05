@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Milady Maker",
+    "address": "0x5af0d9827e0c53e4799bb226655a1de152a425a5",
+    "icon": "/assets/icons/milady.avif",
+    "enumerable": true
+  },
+  {
+    "name": "MiladyStation",
+    "address": "0xB24BaB1732D34cAD0A7C7035C3539aEC553bF3a0",
+    "icon": "/assets/icons/miladystation.avif",
+    "enumerable": true
+  },
+  {
+    "name": "Redacted Remilio Babies",
+    "address": "0xD3D9ddd0CF0A5F0BFB8f7fcEAe075DF687eAEBaB",
+    "icon": "/assets/icons/remilio.webp",
+    "enumerable": true
+  },
+  {
+    "name": "Radbro",
+    "address": "0xABCDB5710B88f456fED1e99025379e2969F29610",
+    "icon": "/assets/icons/radbro.webp",
+    "enumerable": true
+  },
+  {
+    "name": "Pixelady Maker",
+    "address": "0x8Fc0D90f2C45a5e7f94904075c952e0943CFCCfd",
+    "icon": "/assets/icons/pixelady.avif",
+    "enumerable": true
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "targets": [
+    {
+      "selector": ".app-shell",
+      "properties": ["min-height", "padding", "display", "flex-direction"]
+    },
+    {
+      "selector": ".app-main",
+      "properties": ["width", "max-width", "margin", "display", "flex-direction", "gap"]
+    },
+    {
+      "selector": ".wallet-bar",
+      "properties": ["padding", "border-radius", "background-color", "border", "display", "gap"]
+    },
+    {
+      "selector": ".hero-section",
+      "properties": ["padding", "border-radius", "border", "background-color", "text-align"]
+    },
+    {
+      "selector": ".hero-section h1",
+      "properties": ["font-size", "letter-spacing", "margin"]
+    },
+    {
+      "selector": ".cta-row",
+      "properties": ["display", "gap", "justify-content", "flex-wrap"]
+    },
+    {
+      "selector": ".btn.primary",
+      "properties": ["background", "border-radius", "padding", "font-weight", "text-transform"]
+    },
+    {
+      "selector": ".btn.ghost",
+      "properties": ["background-color", "border", "border-radius", "color"]
+    },
+    {
+      "selector": ".footer-note",
+      "properties": ["text-align", "font-size", "color", "border-top", "padding-top"]
+    },
+    {
+      "selector": ".social-pill",
+      "properties": ["width", "height", "border-radius", "border", "display"]
+    }
+  ]
+}

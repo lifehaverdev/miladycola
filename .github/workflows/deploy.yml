@@ -1,0 +1,49 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Cache NFT metadata
+        uses: actions/cache@v3
+        with:
+          path: public/collections
+          key: nft-metadata-v1
+          # Never expire - metadata is static. Bump v1 to v2 etc. to force refresh.
+
+      - name: Mirror NFT metadata
+        run: npm run mirror:all
+        # Script skips existing files, so cached metadata won't be re-fetched
+
+      - name: Build
+        run: npm run build:mainnet
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # This is important for single-page applications that use client-side routing
+          # This ensures that all requests are routed to index.html
+          # enabling proper routing after refresh or direct URL access
+          keep_files: false # Ensure existing files are overwritten
+          force_orphan: true # Create a fresh gh-pages branch each time
+          enable_jekyll: false # Disable Jekyll processing

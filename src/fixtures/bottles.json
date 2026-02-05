@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "challengeId": 0,
+    "challengeTitle": "Milady #2847",
+    "odds": 15,
+    "priceEth": "0.03",
+    "purchasedAt": 1736870400000,
+    "revealAt": 1736871300000,
+    "status": "ready",
+    "passphrase": "crystal-dawn-47",
+    "prizeImage": "https://www.miladymaker.net/milady/2847.png"
+  },
+  {
+    "id": 2,
+    "challengeId": 0,
+    "challengeTitle": "Milady #2847",
+    "odds": 5,
+    "priceEth": "0.01",
+    "purchasedAt": 1736870200000,
+    "revealAt": 1736871100000,
+    "status": "cooling",
+    "cooldownRemaining": 542,
+    "passphrase": "ocean-mist-12",
+    "prizeImage": "https://www.miladymaker.net/milady/2847.png"
+  },
+  {
+    "id": 3,
+    "challengeId": 1,
+    "challengeTitle": "Milady #1337",
+    "odds": 25,
+    "priceEth": "0.0875",
+    "purchasedAt": 1736869800000,
+    "revealAt": 1736870700000,
+    "status": "revealed",
+    "result": "loss",
+    "passphrase": "silver-moon-99",
+    "prizeImage": "https://www.miladymaker.net/milady/1337.png"
+  },
+  {
+    "id": 4,
+    "challengeId": 1,
+    "challengeTitle": "Milady #1337",
+    "odds": 50,
+    "priceEth": "0.175",
+    "purchasedAt": 1736868900000,
+    "revealAt": 1736869800000,
+    "status": "claimable",
+    "result": "win",
+    "passphrase": "golden-sun-88",
+    "prizeImage": "https://www.miladymaker.net/milady/1337.png"
+  }
+]

@@ -1,0 +1,80 @@
+/* Colasseum UI - Global Style Imports */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Big+Shoulders+Display:wght@600&display=swap');
+
+@import './base.css';
+@import './utilities.css';
+@import './components.css';
+
+/* Challenge Page Styles */
+.challenge-page {
+  min-height: 100vh;
+}
+
+.challenge-page__main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.challenge-page__loading,
+.challenge-page__error {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.challenge-page__error h2 {
+  margin-bottom: 1rem;
+}
+
+.challenge-page__error .btn {
+  margin-top: 1.5rem;
+}
+
+/* Challenge Page Hero */
+.challenge-page__hero {
+  margin-bottom: 2rem;
+}
+
+.challenge-page__hero .challenge-card {
+  max-width: 100%;
+}
+
+.challenge-page__hero .challenge-card__media {
+  min-height: 300px;
+  background-size: cover;
+  background-position: center;
+}
+
+.challenge-page__hero .challenge-card__body {
+  padding: 1.5rem;
+}
+
+.challenge-page__hero .challenge-card__title h3 {
+  font-size: 1.5rem;
+}
+
+.challenge-page__hero .challenge-card__stats {
+  font-size: 1.1rem;
+}
+
+.challenge-page__hero .challenge-card__enter-btn {
+  font-size: 1.1rem;
+  padding: 0.875rem 1.5rem;
+}
+
+/* Challenge Header */
+.challenge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.challenge-header__left {
+  display: flex;
+  align-items: center;
+}
+
+.challenge-header__home {
+  font-size: 0.9rem;
+}

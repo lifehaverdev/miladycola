@@ -1,0 +1,11 @@
+{
+  "hubAddress": "0xF373BeF9a4F9AE4e101349477e348A700Bca90Db",
+  "colasseumAddress": "0xF373BeF9a4F9AE4e101349477e348A700Bca90Db",
+  "nftAddress": "0xcC3f60e63a3d4D7EDec43d7558301912050ee6C9",
+  "rpcUrl": "http://127.0.0.1:8545",
+  "chainId": 1337,
+  "charityAddress": "0x1821bd18cbdd267ce4e389f893ddfe7beb333ab6",
+  "charityGenerosityBps": 1000,
+  "ticketPriceWei": "1000000000",
+  "appraisalWei": "200000000000000000"
+}

@@ -1,0 +1,851 @@
+{
+  "chainId": 1,
+  "rpcUrl": "https://eth-mainnet.g.alchemy.com/v2/79w6H2dT_VVw3Z_W3RWoZsoEf885R1wF",
+  "network": "mainnet",
+  "deployedAt": "2026-02-04T23:49:30.433Z",
+  "contracts": {
+    "colasseum": {
+      "address": "0xfE46C9F814752ab46C068A918A13a3B8e84c775C",
+      "abi": [
+        {
+          "type": "constructor",
+          "inputs": [
+            {
+              "name": "_oracle",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "_verifier",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "_charity",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "_generosity",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "_witness",
+              "type": "address",
+              "internalType": "address"
+            }
+          ],
+          "stateMutability": "nonpayable"
+        },
+        {
+          "type": "function",
+          "name": "affirm",
+          "inputs": [],
+          "outputs": [],
+          "stateMutability": "nonpayable"
+        },
+        {
+          "type": "function",
+          "name": "challenge",
+          "inputs": [
+            {
+              "name": "_nftContract",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "_nftId",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "_appraisal",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "_lore",
+              "type": "string",
+              "internalType": "string"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "stateMutability": "payable"
+        },
+        {
+          "type": "function",
+          "name": "chances",
+          "inputs": [
+            {
+              "name": "",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "owner",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "trialId",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "commitment",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "targetTimestamp",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "numChances",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "status",
+              "type": "uint8",
+              "internalType": "uint8"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "charity",
+          "inputs": [],
+          "outputs": [
+            {
+              "name": "donations",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "generosity",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "cowardice",
+          "inputs": [
+            {
+              "name": "_trialId",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "outputs": [],
+          "stateMutability": "nonpayable"
+        },
+        {
+          "type": "function",
+          "name": "honor",
+          "inputs": [
+            {
+              "name": "_donations",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "_generosity",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "outputs": [],
+          "stateMutability": "nonpayable"
+        },
+        {
+          "type": "function",
+          "name": "lore",
+          "inputs": [
+            {
+              "name": "",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "",
+              "type": "string",
+              "internalType": "string"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "onERC721Received",
+          "inputs": [
+            {
+              "name": "",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "",
+              "type": "bytes",
+              "internalType": "bytes"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "",
+              "type": "bytes4",
+              "internalType": "bytes4"
+            }
+          ],
+          "stateMutability": "pure"
+        },
+        {
+          "type": "function",
+          "name": "perseverance",
+          "inputs": [
+            {
+              "name": "_chanceIds",
+              "type": "uint256[]",
+              "internalType": "uint256[]"
+            }
+          ],
+          "outputs": [],
+          "stateMutability": "nonpayable"
+        },
+        {
+          "type": "function",
+          "name": "trials",
+          "inputs": [
+            {
+              "name": "",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "challenger",
+              "type": "address",
+              "internalType": "address payable"
+            },
+            {
+              "name": "nftContract",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "nftId",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "appraisal",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "difficulty",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "ethPool",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "depositEscrow",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "creationTime",
+              "type": "uint64",
+              "internalType": "uint64"
+            },
+            {
+              "name": "status",
+              "type": "uint8",
+              "internalType": "uint8"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "trust",
+          "inputs": [
+            {
+              "name": "_witness",
+              "type": "address",
+              "internalType": "address"
+            }
+          ],
+          "outputs": [],
+          "stateMutability": "nonpayable"
+        },
+        {
+          "type": "function",
+          "name": "valor",
+          "inputs": [
+            {
+              "name": "_trialId",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "_commitment",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "_targetTimestamp",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "_numChances",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "outputs": [],
+          "stateMutability": "payable"
+        },
+        {
+          "type": "function",
+          "name": "victory",
+          "inputs": [
+            {
+              "name": "_chanceId",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "_beaconTimestamp",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "_pA",
+              "type": "uint256[2]",
+              "internalType": "uint256[2]"
+            },
+            {
+              "name": "_pB",
+              "type": "uint256[2][2]",
+              "internalType": "uint256[2][2]"
+            },
+            {
+              "name": "_pC",
+              "type": "uint256[2]",
+              "internalType": "uint256[2]"
+            }
+          ],
+          "outputs": [],
+          "stateMutability": "nonpayable"
+        },
+        {
+          "type": "function",
+          "name": "witness",
+          "inputs": [],
+          "outputs": [
+            {
+              "name": "",
+              "type": "address",
+              "internalType": "address"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "event",
+          "name": "ChallengeAccepted",
+          "inputs": [
+            {
+              "name": "trialId",
+              "type": "uint256",
+              "indexed": true,
+              "internalType": "uint256"
+            },
+            {
+              "name": "chanceId",
+              "type": "uint256",
+              "indexed": true,
+              "internalType": "uint256"
+            },
+            {
+              "name": "participant",
+              "type": "address",
+              "indexed": true,
+              "internalType": "address"
+            },
+            {
+              "name": "numChances",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "appraisal",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "difficulty",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            }
+          ],
+          "anonymous": false
+        },
+        {
+          "type": "event",
+          "name": "Gauntlet",
+          "inputs": [
+            {
+              "name": "trialId",
+              "type": "uint256",
+              "indexed": true,
+              "internalType": "uint256"
+            },
+            {
+              "name": "challenger",
+              "type": "address",
+              "indexed": true,
+              "internalType": "address"
+            },
+            {
+              "name": "nftContract",
+              "type": "address",
+              "indexed": false,
+              "internalType": "address"
+            },
+            {
+              "name": "nftId",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "appraisal",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "difficulty",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "lore",
+              "type": "string",
+              "indexed": false,
+              "internalType": "string"
+            }
+          ],
+          "anonymous": false
+        },
+        {
+          "type": "event",
+          "name": "HonorAffirmed",
+          "inputs": [
+            {
+              "name": "newDonations",
+              "type": "address",
+              "indexed": true,
+              "internalType": "address"
+            },
+            {
+              "name": "newGenerosity",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            }
+          ],
+          "anonymous": false
+        },
+        {
+          "type": "event",
+          "name": "HonorPending",
+          "inputs": [
+            {
+              "name": "proposedDonations",
+              "type": "address",
+              "indexed": true,
+              "internalType": "address"
+            },
+            {
+              "name": "proposedGenerosity",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            }
+          ],
+          "anonymous": false
+        },
+        {
+          "type": "event",
+          "name": "Justice",
+          "inputs": [
+            {
+              "name": "trialId",
+              "type": "uint256",
+              "indexed": true,
+              "internalType": "uint256"
+            },
+            {
+              "name": "chanceId",
+              "type": "uint256",
+              "indexed": true,
+              "internalType": "uint256"
+            },
+            {
+              "name": "participant",
+              "type": "address",
+              "indexed": true,
+              "internalType": "address"
+            },
+            {
+              "name": "amount",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "numChances",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            }
+          ],
+          "anonymous": false
+        },
+        {
+          "type": "event",
+          "name": "Surrender",
+          "inputs": [
+            {
+              "name": "trialId",
+              "type": "uint256",
+              "indexed": true,
+              "internalType": "uint256"
+            }
+          ],
+          "anonymous": false
+        },
+        {
+          "type": "event",
+          "name": "TrustBestowed",
+          "inputs": [
+            {
+              "name": "oldWitness",
+              "type": "address",
+              "indexed": true,
+              "internalType": "address"
+            },
+            {
+              "name": "newWitness",
+              "type": "address",
+              "indexed": true,
+              "internalType": "address"
+            }
+          ],
+          "anonymous": false
+        },
+        {
+          "type": "event",
+          "name": "Victor",
+          "inputs": [
+            {
+              "name": "trialId",
+              "type": "uint256",
+              "indexed": true,
+              "internalType": "uint256"
+            },
+            {
+              "name": "chanceId",
+              "type": "uint256",
+              "indexed": true,
+              "internalType": "uint256"
+            },
+            {
+              "name": "winner",
+              "type": "address",
+              "indexed": true,
+              "internalType": "address"
+            },
+            {
+              "name": "appraisal",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "difficulty",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "charityDonation",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "challengerShare",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            }
+          ],
+          "anonymous": false
+        },
+        {
+          "type": "error",
+          "name": "Reentrancy",
+          "inputs": []
+        }
+      ]
+    },
+    "verifier": {
+      "address": "0xf3ECfe0830eCC0C9eBAfbd13f31E12F266850c8b",
+      "abi": [
+        {
+          "type": "function",
+          "name": "verifyProof",
+          "inputs": [
+            {
+              "name": "_pA",
+              "type": "uint256[2]",
+              "internalType": "uint256[2]"
+            },
+            {
+              "name": "_pB",
+              "type": "uint256[2][2]",
+              "internalType": "uint256[2][2]"
+            },
+            {
+              "name": "_pC",
+              "type": "uint256[2]",
+              "internalType": "uint256[2]"
+            },
+            {
+              "name": "_pubSignals",
+              "type": "uint256[5]",
+              "internalType": "uint256[5]"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "",
+              "type": "bool",
+              "internalType": "bool"
+            }
+          ],
+          "stateMutability": "view"
+        }
+      ]
+    },
+    "oracle": {
+      "address": "0xFac6478a6e9Cece4931b25a7d938c013F4568779",
+      "abi": [
+        {
+          "type": "function",
+          "name": "BEACON_ROOTS_ADDRESS",
+          "inputs": [],
+          "outputs": [
+            {
+              "name": "",
+              "type": "address",
+              "internalType": "address"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "BUFFER_LIMIT_SECONDS",
+          "inputs": [],
+          "outputs": [
+            {
+              "name": "",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "SAFETY_DELAY",
+          "inputs": [],
+          "outputs": [
+            {
+              "name": "",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "SECONDS_PER_SLOT",
+          "inputs": [],
+          "outputs": [
+            {
+              "name": "",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "SLOTS_PER_EPOCH",
+          "inputs": [],
+          "outputs": [
+            {
+              "name": "",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "getRandomness",
+          "inputs": [
+            {
+              "name": "targetTimestamp",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "",
+              "type": "bytes32",
+              "internalType": "bytes32"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "isRandomnessAvailable",
+          "inputs": [
+            {
+              "name": "targetTimestamp",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "",
+              "type": "bool",
+              "internalType": "bool"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "verifyRandomness",
+          "inputs": [
+            {
+              "name": "targetTimestamp",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "expectedRoot",
+              "type": "bytes32",
+              "internalType": "bytes32"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "",
+              "type": "bool",
+              "internalType": "bool"
+            }
+          ],
+          "stateMutability": "view"
+        },
+        {
+          "type": "error",
+          "name": "FutureTimestamp",
+          "inputs": []
+        },
+        {
+          "type": "error",
+          "name": "NotFinalized",
+          "inputs": [
+            {
+              "name": "target",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "current",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ]
+        },
+        {
+          "type": "error",
+          "name": "RandomnessExpired",
+          "inputs": [
+            {
+              "name": "timestamp",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ]
+        },
+        {
+          "type": "error",
+          "name": "ZeroRandomness",
+          "inputs": []
+        }
+      ]
+    }
+  }
+}

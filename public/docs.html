@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colasseum Protocol Documentation</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #0a0810;
+      --surface: #12101a;
+      --surface-elevated: #1a1520;
+      --border: #2a2235;
+      --border-glow: #3a3245;
+      --text: #e8e6f0;
+      --muted: #8a8698;
+      --accent: #ff2d55;
+      --accent-secondary: #00e5ff;
+      --accent-glow: rgba(255, 45, 85, 0.4);
+      --cyan-glow: rgba(0, 229, 255, 0.3);
+      --code-bg: #0d0a12;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        linear-gradient(180deg, rgba(10, 8, 16, 0.85) 0%, rgba(10, 8, 16, 0.95) 100%),
+        radial-gradient(ellipse at 20% 0%, rgba(255, 45, 85, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(0, 229, 255, 0.1) 0%, transparent 50%),
+        var(--bg);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    .doc-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    /* Header */
+    .doc-header {
+      text-align: center;
+      padding: 3rem 0 4rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .doc-header::before {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      text-shadow:
+        0 0 40px var(--accent-glow),
+        0 0 80px var(--accent-glow),
+        0 4px 0 rgba(0, 0, 0, 0.3);
+      margin-bottom: 0.75rem;
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from { text-shadow: 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow), 0 4px 0 rgba(0, 0, 0, 0.3); }
+      to { text-shadow: 0 0 60px var(--accent-glow), 0 0 120px var(--accent-glow), 0 4px 0 rgba(0, 0, 0, 0.3); }
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      margin-top: 4rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--border);
+      position: relative;
+    }
+
+    h2::before {
+      content: '//';
+      color: var(--accent);
+      margin-right: 0.5rem;
+      opacity: 0.7;
+    }
+
+    h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 1.3rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-secondary);
+      text-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      border-left: 3px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      opacity: 0.9;
+    }
+
+    ul, ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.75rem;
+    }
+
+    li {
+      margin-bottom: 0.6rem;
+      opacity: 0.9;
+    }
+
+    li::marker {
+      color: var(--accent);
+    }
+
+    strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+      color: var(--accent-secondary);
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+
+    pre::before {
+      content: 'SOLIDITY';
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--border);
+      color: var(--muted);
+      font-size: 0.6rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0 8px 0 4px;
+      letter-spacing: 0.1em;
+    }
+
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: var(--surface);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--surface-elevated);
+      color: var(--accent);
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 45, 85, 0.05);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--accent);
+      background: linear-gradient(90deg, rgba(255, 45, 85, 0.1), transparent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    blockquote p {
+      color: var(--muted);
+      font-style: italic;
+      margin: 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      transition: all 0.2s;
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    .back-link:hover {
+      background: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    /* TOC */
+    .toc {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .toc::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+    }
+
+    .toc h4 {
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+      border-left: none;
+      padding-left: 0;
+      color: var(--text);
+      font-size: 0.8rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .toc li {
+      margin: 0;
+    }
+
+    .toc a {
+      display: block;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .toc a::before {
+      content: '>';
+      color: var(--accent);
+      margin-right: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .toc a:hover {
+      color: var(--accent);
+      background: rgba(255, 45, 85, 0.1);
+    }
+
+    .toc a:hover::before {
+      opacity: 1;
+    }
+
+    /* Scroll indicator */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      z-index: 1000;
+      transition: width 0.1s;
+    }
+
+    @media (max-width: 600px) {
+      .doc-container {
+        padding: 2rem 1rem 3rem;
+      }
+      .doc-header {
+        padding: 2rem 0 3rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.4rem;
+      }
+      .back-link {
+        position: static;
+        margin-bottom: 2rem;
+      }
+      .toc ul {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <a href="/" class="back-link">&larr; Back</a>
+
+  <div class="doc-container">
+    <header class="doc-header">
+      <h1>Colasseum Protocol</h1>
+      <p class="subtitle">Permissionless NFT trials with provably fair outcomes</p>
+    </header>
+
+    <nav class="toc">
+    <h4>Contents</h4>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#actors">Actors</a></li>
+      <li><a href="#lifecycle">Lifecycle</a></li>
+      <li><a href="#randomness">Randomness</a></li>
+      <li><a href="#zk-proof">ZK Proof System</a></li>
+      <li><a href="#economics">Economics</a></li>
+      <li><a href="#security">Security Properties</a></li>
+      <li><a href="#mev">MEV Analysis</a></li>
+    </ul>
+  </nav>
+
+  <h2 id="overview">Overview</h2>
+  <p>Colasseum is a permissionless protocol enabling NFT holders to create provably fair trials where participants can challenge for ownership. The protocol combines EIP-4788 beacon chain randomness with Groth16 zero-knowledge proofs to ensure:</p>
+  <ol>
+    <li><strong>Unpredictable outcomes</strong> - Randomness determined by Ethereum's validator set</li>
+    <li><strong>Verifiable fairness</strong> - On-chain ZK verification proves valid claims</li>
+    <li><strong>Commitment binding</strong> - Participants commit before randomness is revealed</li>
+  </ol>
+  <p>The protocol operates without centralized operators. Anyone can create trials, and outcomes are determined solely by cryptographic proofs.</p>
+
+  <h2 id="actors">Actors</h2>
+
+  <h3>Challenger</h3>
+  <p>The NFT holder who initiates a trial. Responsibilities:</p>
+  <ul>
+    <li>Deposit NFT and set appraisal value</li>
+    <li>Provide 5% deposit as collateral</li>
+    <li>Optionally provide lore (description) for the trial</li>
+  </ul>
+  <p>The challenger receives accumulated entry fees (minus charity donation) when a victor claims the trial, or can withdraw via <code>cowardice()</code> (forfeiting their deposit to charity).</p>
+
+  <h3>Participant</h3>
+  <p>Any address that enters a trial. Responsibilities:</p>
+  <ul>
+    <li>Generate a secret preimage and compute its commitment hash</li>
+    <li>Select a target timestamp for randomness (within 24 hours)</li>
+    <li>Pay the fixed entry cost per chance</li>
+  </ul>
+  <p>Participants can enter multiple chances per trial. After Deep Bake finality, they can attempt victory by generating a ZK proof.</p>
+
+  <h3>Charity</h3>
+  <p>A designated address receiving donations from:</p>
+  <ul>
+    <li>A percentage of entry fees when trials conclude</li>
+    <li>Forfeited deposits when challengers surrender</li>
+  </ul>
+
+  <h3>Witness</h3>
+  <p>An independent address that confirms charity configuration changes. This separation of powers prevents unilateral modification of fund distribution.</p>
+
+  <h2 id="lifecycle">Lifecycle</h2>
+
+  <h3>1. Trial Creation (Gauntlet)</h3>
+  <pre><code>function challenge(
+    address _nftContract,
+    uint256 _nftId,
+    uint256 _appraisal,
+    string memory _lore
+) public payable returns (uint256 trialId)</code></pre>
+  <p>The challenger approves the Colasseum contract for NFT transfer, calls <code>challenge()</code> with appraisal value and minimum 5% deposit. The NFT is transferred to the contract.</p>
+  <p>Difficulty is computed as:</p>
+  <pre><code>difficulty = (MAX_HASH / appraisal) * FIXED_ENTRY_COST</code></pre>
+  <p>Higher appraisals result in lower difficulty thresholds, making claims harder.</p>
+
+  <h3>2. Entry (Valor)</h3>
+  <pre><code>function valor(
+    uint256 _trialId,
+    uint256 _commitment,
+    uint256 _targetTimestamp,
+    uint256 _numChances
+) public payable</code></pre>
+  <p>The participant generates a secret preimage locally, computes <code>commitment = hash(preimage)</code>, selects a target timestamp (must be in future, within 24 hours), and calls <code>valor()</code> with payment.</p>
+  <p><strong>Constraints:</strong></p>
+  <ul>
+    <li>Trial must be active</li>
+    <li><code>numChances > 0</code></li>
+    <li><code>msg.value == numChances * FIXED_ENTRY_COST</code></li>
+    <li><code>targetTimestamp >= block.timestamp</code></li>
+    <li><code>targetTimestamp < block.timestamp + 24 hours</code></li>
+  </ul>
+
+  <h3>3. Settlement</h3>
+
+  <h4>Victory</h4>
+  <p>After Deep Bake finality (768 seconds), the chance owner retrieves beacon root for their target timestamp, generates Groth16 proof, and submits to <code>victory()</code>.</p>
+  <p>The contract verifies the ZK proof, transfers NFT to victor, and distributes the entry pool (charity receives generosity percentage, challenger receives remainder).</p>
+
+  <h4>Cowardice (Surrender)</h4>
+  <p>The challenger can withdraw their NFT at any time via <code>cowardice()</code>, but the deposit is forfeited to charity and participants can reclaim entry fees.</p>
+
+  <h4>Perseverance (Refund)</h4>
+  <p>After a trial is cancelled, participants reclaim their entry fees via <code>perseverance()</code>.</p>
+
+  <h2 id="randomness">Randomness</h2>
+
+  <h3>EIP-4788 Beacon Roots</h3>
+  <p>The protocol uses Ethereum's beacon chain block roots as its entropy source. These roots are:</p>
+  <ul>
+    <li><strong>Unpredictable</strong> - Determined by the distributed validator set</li>
+    <li><strong>On-chain accessible</strong> - Available via the EIP-4788 system contract</li>
+    <li><strong>Time-bounded</strong> - Stored in a ring buffer of 8191 slots (~27 hours)</li>
+  </ul>
+
+  <h3>Deep Bake Safety Delay</h3>
+  <p>Before beacon roots can be used, the protocol enforces a 768-second finality delay:</p>
+  <pre><code>SAFETY_DELAY = 2 epochs * 32 slots/epoch * 12 seconds/slot = 768 seconds</code></pre>
+  <p>This ensures the beacon block is finalized and cannot be reorged.</p>
+
+  <h2 id="zk-proof">ZK Proof System</h2>
+
+  <h3>Circuit Public Signals</h3>
+  <p>The Groth16 circuit accepts 5 public signals:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>Signal</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0</td>
+        <td><code>rootHigh</code></td>
+        <td>Upper 128 bits of beacon root</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td><code>rootLow</code></td>
+        <td>Lower 128 bits of beacon root</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><code>commitment</code></td>
+        <td>Hash of participant's secret preimage</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><code>difficulty</code></td>
+        <td>Trial's threshold value</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><code>numChances</code></td>
+        <td>Number of chances purchased</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Verification</h3>
+  <p>The circuit verifies (privately) that:</p>
+  <ol>
+    <li>The participant knows a preimage that hashes to <code>commitment</code></li>
+    <li>When combined with the beacon root, the result is below <code>difficulty</code></li>
+    <li>The <code>numChances</code> count multiplies the probability accordingly</li>
+  </ol>
+
+  <h2 id="economics">Economics</h2>
+
+  <h3>Entry Cost</h3>
+  <p>Fixed at <code>0.000000001 ETH</code> (1 gwei) per chance.</p>
+
+  <h3>Deposit Requirement</h3>
+  <p>Challengers must deposit at least 5% of their stated appraisal.</p>
+
+  <h3>Charity Generosity</h3>
+  <p>Expressed in basis points (out of 10,000). Example: 500 generosity = 5% to charity, 95% to challenger.</p>
+
+  <h3>Difficulty Calculation</h3>
+  <pre><code>difficulty = (MAX_HASH / appraisal) * FIXED_TICKET_PRICE</code></pre>
+  <p>Where <code>MAX_HASH</code> is the BN254 scalar field size.</p>
+
+  <h2 id="security">Security Properties</h2>
+
+  <h3>Commitment Integrity</h3>
+  <ul>
+    <li>Participants cannot change their preimage after commitment</li>
+    <li>The commitment hash binds their choice before randomness revelation</li>
+    <li>The ZK circuit ensures the proof matches the committed value</li>
+  </ul>
+
+  <h3>Finality Guarantees</h3>
+  <ul>
+    <li>768-second Deep Bake prevents any reorg-based manipulation</li>
+    <li>Two full epochs provide strong finality on beacon chain state</li>
+    <li>Ring buffer expiration (27 hours) creates a hard deadline for claims</li>
+  </ul>
+
+  <h3>Access Controls</h3>
+  <ul>
+    <li>Only chance owner can claim (<code>victory</code>)</li>
+    <li>Only challenger can withdraw (<code>cowardice</code>)</li>
+    <li>Only chance owner can claim refunds (<code>perseverance</code>)</li>
+    <li>Charity changes require two-party approval (charity + witness)</li>
+  </ul>
+
+  <h2 id="mev">MEV Analysis</h2>
+  <p>This section analyzes transaction ordering risks and maximal extractable value (MEV) attack vectors.</p>
+
+  <h3>Commitment Scheme</h3>
+  <p>The protocol implements a commit-reveal pattern that separates the commitment of intent from the revelation of outcomes:</p>
+  <ol>
+    <li><strong>Commit Phase</strong> (<code>valor</code>): Participant submits <code>commitment = hash(preimage)</code> and <code>targetTimestamp</code></li>
+    <li><strong>Finality Phase</strong>: 768 seconds pass (Deep Bake)</li>
+    <li><strong>Reveal Phase</strong> (<code>victory</code>): Participant reveals preimage via ZK proof</li>
+  </ol>
+  <p>This temporal separation ensures randomness is determined after commitments are locked.</p>
+
+  <h3>Attack Vectors Analyzed</h3>
+
+  <h4>Front-running Entries</h4>
+  <p><strong>Risk: None</strong> - The front-runner cannot see the participant's secret preimage (only the commitment hash). Each participant's commitment is independent, and the beacon root at the target timestamp is not yet known.</p>
+
+  <h4>Front-running Claims</h4>
+  <p><strong>Risk: None</strong> - The contract enforces <code>require(chance.owner == msg.sender)</code>. Only the address that created the chance can claim victory. Even if an attacker extracts the ZK proof from the mempool, they cannot use it.</p>
+
+  <h4>Sandwich Attacks</h4>
+  <p><strong>Risk: None</strong> - Sandwich attacks exploit price slippage in AMM swaps. Colasseum has no AMM component - entry cost is fixed at 0.000000001 ETH per chance with no price discovery mechanism.</p>
+
+  <h4>Block Builder Collusion</h4>
+  <p><strong>Risk: Mitigated</strong> - The 768-second finality delay (2 epochs) means the beacon root is finalized before any claim can be made. Block builders cannot predict beacon roots 2 epochs in advance.</p>
+
+  <h4>Commitment Grinding</h4>
+  <p><strong>Risk: None</strong> - Commitments must specify <code>targetTimestamp</code> at entry time, which must be in the future. Once committed, the participant cannot change their target. Deep Bake delay means the beacon root is already determined when grinding would be attempted.</p>
+
+  <h4>Beacon Root Prediction</h4>
+  <p><strong>Risk: None</strong> - Beacon block roots depend on attestations from thousands of validators, RANDAO randomness, and network timing. No party controls enough inputs to predict roots.</p>
+
+  <h3>Risk Summary</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Attack Vector</th>
+        <th>Risk Level</th>
+        <th>Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Front-running entries</td>
+        <td>None</td>
+        <td>Commitment hides preimage</td>
+      </tr>
+      <tr>
+        <td>Front-running claims</td>
+        <td>None</td>
+        <td>Owner-bound access control</td>
+      </tr>
+      <tr>
+        <td>Sandwich attacks</td>
+        <td>None</td>
+        <td>Fixed-price model</td>
+      </tr>
+      <tr>
+        <td>Builder collusion</td>
+        <td>Mitigated</td>
+        <td>Deep Bake finality</td>
+      </tr>
+      <tr>
+        <td>Commitment grinding</td>
+        <td>None</td>
+        <td>Temporal commitment binding</td>
+      </tr>
+      <tr>
+        <td>Root prediction</td>
+        <td>None</td>
+        <td>Beacon unpredictability</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>The protocol's commitment scheme, combined with EIP-4788 beacon randomness and Deep Bake finality delays, provides strong protection against MEV extraction.</p>
+
+  </div>
+
+  <script>
+    // Scroll progress indicator
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = (scrollTop / scrollHeight) * 100;
+      document.getElementById('scrollProgress').style.width = progress + '%';
+    });
+  </script>
+</body>
+</html>

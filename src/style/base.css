@@ -1,0 +1,183 @@
+/* Colasseum Base Tokens & Resets */
+
+/* Custom Display Font */
+@font-face {
+    font-family: 'Remilia Mincho';
+    src: url('/RemiliaMincho-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    /* Atmosphere - Tokyo night */
+    --cola-bg: #0a0510;
+    --cola-panel: rgba(18, 8, 28, 0.88);
+    --cola-border: rgba(255, 255, 255, 0.06);
+    /* Text */
+    --cola-text: #fff5f8;
+    --cola-muted: rgba(255, 245, 248, 0.65);
+    /* Accents - vending machine glow */
+    --cola-primary: #ff2d55;
+    --cola-secondary: #00e5ff;
+    --cola-tertiary: #b24dff;
+    --cola-warning: #ffb800;
+    --cola-success: #39ff8a;
+    /* The Glow */
+    --glow-primary: 0 0 30px rgba(255, 45, 85, 0.4), 0 0 60px rgba(255, 45, 85, 0.2);
+    --glow-secondary: 0 0 30px rgba(0, 229, 255, 0.35), 0 0 60px rgba(0, 229, 255, 0.15);
+    --glow-panel: 0 0 40px rgba(255, 45, 85, 0.12), 0 0 80px rgba(178, 77, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    /* Shape */
+    --panel-radius: 20px;
+    --shadow-soft: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(255, 45, 85, 0.22), transparent 50%),
+        radial-gradient(ellipse at 80% 10%, rgba(0, 229, 255, 0.15), transparent 45%),
+        radial-gradient(ellipse at 50% 100%, rgba(178, 77, 255, 0.12), transparent 50%),
+        var(--cola-bg);
+    color: var(--cola-text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Film grain / noise overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    mix-blend-mode: overlay;
+}
+
+/* CRT Scanlines overlay */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+    opacity: 0.12;
+}
+
+/* Vignette effect */
+#app::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9997;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        transparent 55%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    font-family: 'Remilia Mincho', 'Big Shoulders Display', serif;
+    letter-spacing: 0.02em;
+}
+
+p {
+    margin: 0;
+    color: var(--cola-muted);
+}
+
+button {
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    border: 1px solid var(--cola-border);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--cola-text);
+    font-size: 1rem;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- Entrance Animations --- */
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.96) translateY(20px);
+        filter: blur(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes heroTextReveal {
+    0% {
+        opacity: 0;
+        letter-spacing: 0.2em;
+    }
+    100% {
+        opacity: 1;
+        letter-spacing: 0.06em;
+    }
+}
+
+/* Subtle fluorescent flicker */
+@keyframes vendingFlicker {
+    0%, 97%, 100% { opacity: 1; }
+    97.5% { opacity: 0.92; }
+    98% { opacity: 1; }
+    98.5% { opacity: 0.95; }
+}

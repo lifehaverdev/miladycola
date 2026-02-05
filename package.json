@@ -1,0 +1,35 @@
+{
+  "name": "miladycolav4",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "sepolia": "VITE_NETWORK=sepolia vite",
+    "mainnet": "VITE_NETWORK=mainnet vite",
+    "build": "npm run mirror:all && vite build",
+    "build:sepolia": "VITE_NETWORK=sepolia vite build",
+    "build:mainnet": "VITE_NETWORK=mainnet vite build",
+    "preview": "vite preview",
+    "setup": "node scripts/setup.mjs",
+    "chain:start": "node scripts/chain-start.mjs",
+    "chain:deploy": "node scripts/deploy.mjs",
+    "chain:stop": "node scripts/chain-stop.mjs",
+    "validate-styles": "node scripts/validate-styles.mjs",
+    "mirror:all": "node scripts/mirror-nft-metadata.mjs --collection=all",
+    "mirror:milady": "node scripts/mirror-nft-metadata.mjs --collection=milady",
+    "mirror:remilio": "node scripts/mirror-nft-metadata.mjs --collection=remilio",
+    "mirror:quick": "node scripts/mirror-nft-metadata.mjs --collection=all --start=0 --end=100"
+  },
+  "dependencies": {
+    "@monygroupcorp/micro-web3": "^1.3.9",
+    "@monygroupcorp/microact": "^0.2.1",
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "puppeteer": "^21.0.0",
+    "util": "^0.12.5",
+    "vite": "^4.4.5"
+  }
+}
