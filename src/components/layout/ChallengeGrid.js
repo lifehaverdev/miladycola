@@ -70,11 +70,11 @@ class ChallengeGrid extends Component {
       h('div', { className: 'product-slot__price' },
         h('div', { className: 'product-slot__price-row' },
           h('span', { className: 'product-slot__price-label' }, 'Appraisal'),
-          h('span', { className: 'product-slot__price-value' }, `${challenge.appraisalEth} Ξ`)
+          h('span', { className: 'product-slot__price-value' }, `${parseFloat(challenge.appraisalEth || 0).toFixed(3)} Ξ`)
         ),
         h('div', { className: 'product-slot__price-row' },
           h('span', { className: 'product-slot__price-label' }, 'Attempts'),
-          h('span', { className: 'product-slot__price-value product-slot__price-value--pot' }, `${challenge.potEth || '0'} Ξ`)
+          h('span', { className: 'product-slot__price-value product-slot__price-value--pot' }, `${parseFloat(challenge.potEth || 0).toFixed(3)} Ξ`)
         )
       )
     );

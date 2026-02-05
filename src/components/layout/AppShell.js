@@ -674,6 +674,10 @@ class AppShell extends Component {
 
         // Display window (products behind glass)
         h('div', { className: 'machine-display' },
+          this.state.loading && h('div', { className: 'machine-loading' },
+            h('div', { className: 'machine-loading__spinner' }),
+            h('span', null, 'Loading prizes...')
+          ),
           h(ChallengeGrid, {
             ref: (inst) => { this.challengeGridRef = inst; },
             challenges: this.state.challenges,
