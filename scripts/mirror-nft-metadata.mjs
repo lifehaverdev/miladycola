@@ -209,27 +209,36 @@ async function run() {
         : [options.collection];
 
     const results = {};
-    let anyFailed = false;
+    let collectionFailed = false;
 
     for (const collectionKey of collectionsToMirror) {
         try {
             results[collectionKey] = await mirrorCollection(collectionKey, options);
-            if (results[collectionKey].failed > 0) {
-                anyFailed = true;
-            }
         } catch (err) {
             console.error(`Failed to mirror ${collectionKey}:`, err.message);
-            anyFailed = true;
+            collectionFailed = true;
         }
     }
 
     console.log("\n=== Summary ===");
+    let totalTokens = 0;
+    let totalFailed = 0;
     for (const [key, summary] of Object.entries(results)) {
         console.log(`${key}: ${summary.written} written, ${summary.skipped} skipped, ${summary.failed} failed`);
+        totalTokens += summary.written + summary.skipped + summary.failed;
+        totalFailed += summary.failed;
     }
 
-    if (anyFailed) {
+    // Only fail if >1% of tokens failed or a collection completely failed to start
+    const failureRate = totalTokens > 0 ? (totalFailed / totalTokens) * 100 : 0;
+    if (collectionFailed) {
+        console.error("One or more collections completely failed to mirror");
         process.exitCode = 1;
+    } else if (failureRate > 1) {
+        console.error(`Failure rate ${failureRate.toFixed(2)}% exceeds 1% threshold`);
+        process.exitCode = 1;
+    } else if (totalFailed > 0) {
+        console.log(`${totalFailed} tokens failed (${failureRate.toFixed(2)}%) - within acceptable threshold`);
     }
 }
 
