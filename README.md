@@ -8,8 +8,8 @@ A ZK-SNARK provably fair NFT challenge system using EIP-4788 beacon randomness.
 
 | Contract | Address |
 |----------|---------|
-| Colasseum | [`0xfE46C9F814752ab46C068A918A13a3B8e84c775C`](https://etherscan.io/address/0xfE46C9F814752ab46C068A918A13a3B8e84c775C) |
-| Groth16Verifier | [`0xf3ECfe0830eCC0C9eBAfbd13f31E12F266850c8b`](https://etherscan.io/address/0xf3ECfe0830eCC0C9eBAfbd13f31E12F266850c8b) |
+| Colasseum | [`0xEBB82461b745d4be95C95beCa7095f0EC6c530AC`](https://etherscan.io/address/0xEBB82461b745d4be95C95beCa7095f0EC6c530AC) |
+| Groth16Verifier | [`0x6451e5027EC265c117FbDA85579B337F459D3837`](https://etherscan.io/address/0x6451e5027EC265c117FbDA85579B337F459D3837) |
 | BeaconRandomnessOracle | [`0xFac6478a6e9Cece4931b25a7d938c013F4568779`](https://etherscan.io/address/0xFac6478a6e9Cece4931b25a7d938c013F4568779) |
 
 ## How It Works
@@ -82,5 +82,7 @@ forge test
 **Beacon Randomness**: EIP-4788 beacon roots are determined by the validator set and cannot be predicted or manipulated by individual actors. The 768-second Deep Bake delay ensures finality before randomness is used.
 
 **Charity Controls**: Charity address and generosity rate changes require a two-step process: proposal by the current charity (`honor`) and confirmation by the witness (`affirm`). This prevents unilateral changes to fund distribution.
+
+**Locked Charity Fee**: Each trial locks the charity fee percentage at creation time in the `charityBps` field. This prevents the protocol owner from changing the fee after participants have entered, protecting against fee manipulation.
 
 **Missed Slot Handling**: If the target timestamp's beacon slot was missed, the contract searches forward up to 12 slots (144 seconds) to find a valid root. Frontend proof generators must use the same algorithm.

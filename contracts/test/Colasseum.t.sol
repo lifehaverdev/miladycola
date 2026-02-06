@@ -336,7 +336,7 @@ contract ColasseumTest is Test {
             uint256 trialAppraisal,
             uint256 difficulty,
             uint256 ethPool,
-            uint256 depositEscrow,,
+            uint256 depositEscrow,,,
             uint8 status
         ) = colasseum.trials(trialId);
 
@@ -442,7 +442,7 @@ contract ColasseumTest is Test {
         vm.prank(participant);
         colasseum.valor{value: payment}(trialId, 0x123, targetTimestamp, numChances);
 
-        (,,,,, uint256 ethPool,,,) = colasseum.trials(trialId);
+        (,,,,, uint256 ethPool,,,,) = colasseum.trials(trialId);
         assertEq(ethPool, payment);
     }
 
@@ -452,7 +452,7 @@ contract ColasseumTest is Test {
         uint256 numChances = 10;
         uint256 payment = numChances * FIXED_TICKET_PRICE;
 
-        (,,, uint256 appraisal, uint256 difficulty,,,,) = colasseum.trials(trialId);
+        (,,, uint256 appraisal, uint256 difficulty,,,,,) = colasseum.trials(trialId);
 
         vm.prank(participant);
         vm.expectEmit(true, true, true, true);
@@ -502,7 +502,7 @@ contract ColasseumTest is Test {
         vm.prank(participant2);
         colasseum.valor{value: FIXED_TICKET_PRICE * 10}(trialId, 0x222, targetTimestamp, 10);
 
-        (,,,,, uint256 ethPool,,,) = colasseum.trials(trialId);
+        (,,,,, uint256 ethPool,,,,) = colasseum.trials(trialId);
         assertEq(ethPool, FIXED_TICKET_PRICE * 15);
     }
 
@@ -529,7 +529,7 @@ contract ColasseumTest is Test {
         );
 
         // Check trial is no longer active
-        (,,,,,,,, uint8 status) = colasseum.trials(trialId);
+        (,,,,,,,,, uint8 status) = colasseum.trials(trialId);
         assertEq(status & 1, 0); // TRIAL_ACTIVE bit is cleared
 
         // Check chance is claimed
@@ -548,7 +548,7 @@ contract ColasseumTest is Test {
         verifier.setAlwaysPass(true);
         vm.warp(targetTimestamp + SAFETY_DELAY + 1);
 
-        (,,, uint256 appraisal, uint256 difficulty, uint256 ethPool,,,) = colasseum.trials(trialId);
+        (,,, uint256 appraisal, uint256 difficulty, uint256 ethPool,,,,) = colasseum.trials(trialId);
         uint256 expectedCharity = (ethPool * 1000) / BPS_DENOMINATOR;
         uint256 expectedChallenger = ethPool - expectedCharity;
 
@@ -662,7 +662,7 @@ contract ColasseumTest is Test {
         vm.prank(challenger);
         colasseum.cowardice(trialId);
 
-        (,,,,,,,, uint8 status) = colasseum.trials(trialId);
+        (,,,,,,,,, uint8 status) = colasseum.trials(trialId);
         assertEq(status & 1, 0); // TRIAL_ACTIVE cleared
         assertEq(status & 2, 2); // TRIAL_CANCELLED set
     }
@@ -682,7 +682,7 @@ contract ColasseumTest is Test {
         uint256 trialId = _createTrial(challenger);
 
         uint256 charityBalanceBefore = charity.balance;
-        (,,,,,, uint256 deposit,,) = colasseum.trials(trialId);
+        (,,,,,, uint256 deposit,,,) = colasseum.trials(trialId);
 
         vm.prank(challenger);
         colasseum.cowardice(trialId);

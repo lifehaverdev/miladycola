@@ -905,6 +905,10 @@ class ChallengeWizard extends Component {
     const { selectedToken, appraisal, lore } = this.state;
     const deposit = this.getDepositAmount();
 
+    // Get charity fee from contract service if available, default to 10%
+    const charityBps = this.props.contractService?.charityGenerosity || 1000;
+    const charityPercent = (charityBps / 100).toFixed(1).replace(/\.0$/, '');
+
     if (!selectedToken) return null;
 
     return h('section', { className: 'wizard-stage' },
@@ -923,13 +927,17 @@ class ChallengeWizard extends Component {
           h('span', { className: 'muted' }, 'Your Deposit (5%)'),
           h('strong', null, `${deposit} ETH`)
         ),
+        h('div', { className: 'review-item' },
+          h('span', { className: 'muted' }, 'Charity Fee'),
+          h('strong', null, `${charityPercent}% of pot`)
+        ),
         lore && h('div', { className: 'review-item review-item--lore' },
           h('span', { className: 'muted' }, 'Lore'),
           h('p', { className: 'review-lore-text' }, lore)
         )
       ),
 
-      h('p', { className: 'muted small-text review-note' }, `By creating this challenge, you'll escrow ${deposit} ETH. This returns to you when someone wins, along with any accumulated prize pot.`),
+      h('p', { className: 'muted small-text review-note' }, `By creating this challenge, you'll escrow ${deposit} ETH. This returns to you when someone wins. The prize pot (minus ${charityPercent}% charity) goes to you as the challenger.`),
 
       h('div', { className: 'review-actions' },
         h('button', {

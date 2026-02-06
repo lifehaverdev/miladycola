@@ -2,10 +2,10 @@
   "chainId": 1,
   "rpcUrl": "https://eth-mainnet.g.alchemy.com/v2/79w6H2dT_VVw3Z_W3RWoZsoEf885R1wF",
   "network": "mainnet",
-  "deployedAt": "2026-02-04T23:49:30.433Z",
+  "deployedAt": "2026-02-06T00:00:00.000Z",
   "contracts": {
     "colasseum": {
-      "address": "0xfE46C9F814752ab46C068A918A13a3B8e84c775C",
+      "address": "0xEBB82461b745d4be95C95beCa7095f0EC6c530AC",
       "abi": [
         {
           "type": "constructor",
@@ -288,6 +288,11 @@
               "name": "creationTime",
               "type": "uint64",
               "internalType": "uint64"
+            },
+            {
+              "name": "charityBps",
+              "type": "uint16",
+              "internalType": "uint16"
             },
             {
               "name": "status",
@@ -640,7 +645,7 @@
       ]
     },
     "verifier": {
-      "address": "0xf3ECfe0830eCC0C9eBAfbd13f31E12F266850c8b",
+      "address": "0x6451e5027EC265c117FbDA85579B337F459D3837",
       "abi": [
         {
           "type": "function",

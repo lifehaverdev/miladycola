@@ -68,6 +68,7 @@ contract Colasseum is ReentrancyGuard {
         uint256 ethPool;
         uint256 depositEscrow;
         uint64 creationTime;
+        uint16 charityBps; // locked at creation to prevent rug
         uint8 status;
     }
 
@@ -207,6 +208,7 @@ contract Colasseum is ReentrancyGuard {
             ethPool: 0,
             depositEscrow: msg.value,
             creationTime: uint64(block.timestamp),
+            charityBps: uint16(charity.generosity), // lock at creation
             status: TRIAL_ACTIVE
         });
 
@@ -306,7 +308,7 @@ contract Colasseum is ReentrancyGuard {
         if (trial.ethPool > 0) {
             uint256 pot = trial.ethPool;
             trial.ethPool = 0;
-            (charityDonation, challengerShare) = _donateToCharity(pot, trial.challenger);
+            (charityDonation, challengerShare) = _donateToCharity(pot, trial.challenger, trial.charityBps);
         }
         if (trial.depositEscrow > 0) {
             uint256 depositToReturn = trial.depositEscrow;
@@ -407,9 +409,10 @@ contract Colasseum is ReentrancyGuard {
 
     function _donateToCharity(
         uint256 pot,
-        address payable challenger
+        address payable challenger,
+        uint256 lockedBps
     ) private returns (uint256 donation, uint256 remainder) {
-        donation = (pot * charity.generosity) / 10_000;
+        donation = (pot * lockedBps) / 10_000;
         remainder = pot - donation;
 
         if (donation > 0) {

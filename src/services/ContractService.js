@@ -25,6 +25,7 @@ class ContractService {
     this.contracts = null;
     this.config = null;
     this.initialized = false;
+    this.charityGenerosity = 1000; // Default 10% (1000 bps)
   }
 
   /**
@@ -63,6 +64,16 @@ class ContractService {
 
     this.initialized = true;
     console.log('[ContractService] Initialized with colasseum at:', config.contracts.colasseum.address);
+
+    // Read charity generosity from contract
+    try {
+      const charity = await this.contracts.colasseum.charity();
+      this.charityGenerosity = charity.generosity.toNumber();
+      console.log('[ContractService] Charity generosity:', this.charityGenerosity, 'bps');
+    } catch (err) {
+      console.warn('[ContractService] Failed to read charity generosity:', err.message);
+      this.charityGenerosity = 1000; // Default 10%
+    }
   }
 
   /**

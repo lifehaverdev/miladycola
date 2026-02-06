@@ -71,7 +71,7 @@ contract ColasseumEdgeTest is Test {
         vm.prank(challenger);
         uint256 trialId = colasseum.challenge{value: deposit}(address(nft), tokenId, safeMinAppraisal, "");
 
-        (,,, uint256 appraisal, uint256 difficulty,,,,) = colasseum.trials(trialId);
+        (,,, uint256 appraisal, uint256 difficulty,,,,,) = colasseum.trials(trialId);
         assertEq(appraisal, safeMinAppraisal);
         assertGt(difficulty, 0);
     }
@@ -86,7 +86,7 @@ contract ColasseumEdgeTest is Test {
         vm.prank(challenger);
         uint256 trialId = colasseum.challenge{value: deposit}(address(nft), tokenId, highAppraisal, "");
 
-        (,,,, uint256 difficulty,,,,) = colasseum.trials(trialId);
+        (,,,, uint256 difficulty,,,,,) = colasseum.trials(trialId);
         assertGt(difficulty, 0);
     }
 
@@ -155,10 +155,10 @@ contract ColasseumEdgeTest is Test {
         vm.prank(challenger);
         colasseum.cowardice(trialId1);
 
-        (,,,,,,,, uint8 status1) = colasseum.trials(trialId1);
+        (,,,,,,,,, uint8 status1) = colasseum.trials(trialId1);
         assertEq(status1 & 2, 2);
 
-        (,,,,,,,, uint8 status2) = colasseum.trials(trialId2);
+        (,,,,,,,,, uint8 status2) = colasseum.trials(trialId2);
         assertEq(status2 & 1, 1);
     }
 
@@ -195,7 +195,7 @@ contract ColasseumEdgeTest is Test {
     function test_statusBits_trialActive() public {
         uint256 trialId = _createTrial(challenger);
 
-        (,,,,,,,, uint8 status) = colasseum.trials(trialId);
+        (,,,,,,,,, uint8 status) = colasseum.trials(trialId);
         assertEq(status & 1, 1); // TRIAL_ACTIVE = 1 << 0
         assertEq(status & 2, 0); // TRIAL_CANCELLED = 1 << 1
     }
@@ -206,7 +206,7 @@ contract ColasseumEdgeTest is Test {
         vm.prank(challenger);
         colasseum.cowardice(trialId);
 
-        (,,,,,,,, uint8 status) = colasseum.trials(trialId);
+        (,,,,,,,,, uint8 status) = colasseum.trials(trialId);
         assertEq(status & 1, 0); // TRIAL_ACTIVE cleared
         assertEq(status & 2, 2); // TRIAL_CANCELLED set
     }
@@ -391,7 +391,7 @@ contract ColasseumEdgeTest is Test {
         }
 
         // Verify pool accumulated all 50 entries
-        (,,,,, uint256 ethPool,,,) = colasseum.trials(trialId);
+        (,,,,, uint256 ethPool,,,,) = colasseum.trials(trialId);
         assertEq(ethPool, FIXED_TICKET_PRICE * 5 * 50);
     }
 
@@ -414,7 +414,7 @@ contract ColasseumEdgeTest is Test {
         vm.prank(challenger);
         uint256 trialId = colasseum.challenge{value: deposit}(address(nft), tokenId, appraisal, "");
 
-        (,,, uint256 storedAppraisal, uint256 difficulty,,,,) = colasseum.trials(trialId);
+        (,,, uint256 storedAppraisal, uint256 difficulty,,,,,) = colasseum.trials(trialId);
         assertEq(storedAppraisal, appraisal);
         assertGt(difficulty, 0);
     }
