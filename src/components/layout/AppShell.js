@@ -518,6 +518,7 @@ class AppShell extends Component {
               challengeTitle,
               odds,
               priceEth,
+              prizeEth: challenge?.appraisalEth || '0',
               purchaseTime: 0, // Not stored on chain, would need events
               refrigerationEnds: cooldownEnd * 1000,
               cooldownRemaining,

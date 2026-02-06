@@ -141,7 +141,7 @@ class ClaimModal extends Component {
               h('button', {
                 className: 'btn primary full share-btn',
                 type: 'button',
-                onClick: () => shareOnX(`🏆 Just claimed my NFT prize on @miladycola!\n\nZK-powered provably fair challenge using Ethereum beacon randomness 🍾`),
+                onClick: () => shareOnX(`🏆 Won on @miladycola for ${bottle.prizeEth || '?'} ETH!\n\nZK-powered provably fair challenge using Ethereum beacon randomness 🍾`),
               }, '𝕏 Share Your Victory!'),
               h('button', {
                 className: 'btn ghost full',

@@ -284,7 +284,7 @@ class RevealModal extends Component {
         isWin && h('button', {
           className: 'btn primary share-btn',
           type: 'button',
-          onClick: () => shareOnX(`🎉 Just won a prize on @miladycola!\n\nZK-powered NFT challenge with real Ethereum beacon randomness 🍾`),
+          onClick: () => shareOnX(`🎉 Won on @miladycola for ${bottle.prizeEth || '?'} ETH!\n\nZK-powered NFT challenge with real Ethereum beacon randomness 🍾`),
         }, '𝕏 Share Your Win!')
       )
     );

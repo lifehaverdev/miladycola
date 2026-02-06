@@ -179,13 +179,14 @@ class BottleCard extends Component {
     const isLoss = isFinalized && result === 'loss';
 
     if (isWin) {
+      const prizeValue = this.props.bottle.prizeEth || '?';
       return h('div', { className: 'bottle-visual-wrapper' },
         h('div', { className: 'bottle-color-circle', style: `background: ${color};` }),
         h('img', { src: '/win.svg', alt: 'Winner', className: 'bottle-result-svg' }),
         h('button', {
           className: 'cap-share-btn cap-share-btn--win',
           type: 'button',
-          onClick: (e) => shareOnX(`🎉 Won on @miladycola!\n\nZK-powered NFT challenge`, e),
+          onClick: (e) => shareOnX(`🎉 Won on @miladycola for ${prizeValue} ETH!\n\nZK-powered NFT challenge`, e),
           title: 'Share on X',
         }, '𝕏')
       );
