@@ -179,27 +179,28 @@ class BottleCard extends Component {
     const isLoss = isFinalized && result === 'loss';
 
     if (isWin) {
-      const prizeValue = this.props.bottle.prizeEth || '?';
+      const bottleCost = this.props.bottle.priceEth || '?';
       return h('div', { className: 'bottle-visual-wrapper' },
         h('div', { className: 'bottle-color-circle', style: `background: ${color};` }),
         h('img', { src: '/win.svg', alt: 'Winner', className: 'bottle-result-svg' }),
         h('button', {
           className: 'cap-share-btn cap-share-btn--win',
           type: 'button',
-          onClick: (e) => shareOnX(`🎉 Won on @miladycola for ${prizeValue} ETH!\n\nZK-powered NFT challenge`, e),
+          onClick: (e) => shareOnX(`🎉 Won an NFT on @miladycola for just ${bottleCost} ETH!\n\nZK-powered NFT challenge`, e),
           title: 'Share on X',
         }, '𝕏')
       );
     }
 
     if (isLoss) {
+      const bottleCost = this.props.bottle.priceEth || '?';
       return h('div', { className: 'bottle-visual-wrapper' },
         h('div', { className: 'bottle-color-circle', style: `background: ${color};` }),
         h('img', { src: '/loss.svg', alt: 'No luck', className: 'bottle-result-svg' }),
         h('button', {
           className: 'cap-share-btn cap-share-btn--loss',
           type: 'button',
-          onClick: (e) => shareOnX(`Popped a @miladycola bottle... no luck 😔\n\nTry your luck`, e),
+          onClick: (e) => shareOnX(`Popped a ${bottleCost} ETH @miladycola bottle... no luck 😔\n\nTry your luck`, e),
           title: 'Share on X',
         }, '𝕏')
       );

@@ -279,12 +279,12 @@ class RevealModal extends Component {
         isLoss && h('button', {
           className: 'btn ghost share-btn',
           type: 'button',
-          onClick: () => shareOnX(`Just popped a @miladycola bottle... no luck this time 😔\n\nTry your luck on NFT prizes with ZK proofs 🍾`),
+          onClick: () => shareOnX(`Popped a ${bottle.priceEth || '?'} ETH @miladycola bottle... no luck 😔\n\nTry your luck on NFT prizes with ZK proofs 🍾`),
         }, '𝕏 Share the L'),
         isWin && h('button', {
           className: 'btn primary share-btn',
           type: 'button',
-          onClick: () => shareOnX(`🎉 Won on @miladycola for ${bottle.prizeEth || '?'} ETH!\n\nZK-powered NFT challenge with real Ethereum beacon randomness 🍾`),
+          onClick: () => shareOnX(`🎉 Won an NFT on @miladycola for just ${bottle.priceEth || '?'} ETH!\n\nZK-powered NFT challenge with real Ethereum beacon randomness 🍾`),
         }, '𝕏 Share Your Win!')
       )
     );
