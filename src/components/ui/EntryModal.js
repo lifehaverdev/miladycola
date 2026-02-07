@@ -1,6 +1,9 @@
 import { Component, h, eventBus } from '@monygroupcorp/microact';
+import { IpfsImage, IpfsService } from '@monygroupcorp/micro-web3';
 import { ethers } from 'ethers';
 import cryptoService from '../../services/CryptoService.js';
+
+const { isIpfsUri } = IpfsService;
 
 // BN128 field / MAX_HASH - same as contract
 const MAX_HASH = ethers.BigNumber.from(
@@ -323,6 +326,11 @@ class EntryModal extends Component {
       ),
       h('div', { className: 'form-grid' },
         h('div', { className: 'prize-summary', 'aria-hidden': 'false' },
+          challenge.image && h('div', { className: 'prize-summary__image' },
+            isIpfsUri(challenge.image)
+              ? h(IpfsImage, { src: challenge.image, alt: challenge.title })
+              : h('img', { src: challenge.image, alt: challenge.title })
+          ),
           h('div', { className: 'prize-summary__details' },
             h('strong', null, challenge.title),
             h('p', { className: 'muted small-text' }, `Appraisal: ${challenge.appraisalEth} ETH`)

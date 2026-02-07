@@ -328,21 +328,20 @@
     align-items: center;
     justify-content: center;
     padding: 8px;
+    overflow: hidden;
 }
 
 .product-slot__image img,
 .product-slot__image .ipfs-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
     border-radius: 4px;
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
 }
 
 .product-slot__image .ipfs-image-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
 }
 
 .product-slot__price {
@@ -2736,9 +2735,21 @@
 
 .prize-summary[aria-hidden="false"] {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     gap: 0.75rem;
+}
+
+.prize-summary__image {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.prize-summary__image img,
+.prize-summary__image .ipfs-image-container,
+.prize-summary__image .ipfs-image {
+    width: 100%;
+    display: block;
 }
 
 .prize-summary__details {

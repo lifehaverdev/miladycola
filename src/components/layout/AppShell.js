@@ -193,6 +193,16 @@ class AppShell extends Component {
       }
     });
 
+    // Safety timeout: stop showing spinner after 30s even if indexer never fires
+    if (!useFixtures) {
+      this._loadingTimeout = setTimeout(() => {
+        if (this.state.loading) {
+          console.warn('[AppShell] Loading timeout reached, giving up');
+          this.setState({ loading: false });
+        }
+      }, 30000);
+    }
+
     // Parallax background scroll effect
     const parallaxRate = 0.3; // Background scrolls at 30% of content scroll
     const handleParallax = () => {
@@ -342,7 +352,8 @@ class AppShell extends Component {
 
   async loadContractData() {
     if (!this.props.colasseumIndexer?.initialized || !this.props.contractService?.initialized) {
-      this.setState({ loading: false });
+      // Services not ready yet — keep loading spinner visible.
+      // Data will load when 'colasseum:indexerReady' fires.
       return;
     }
 
@@ -407,9 +418,11 @@ class AppShell extends Component {
       }));
 
       this.updateChallenges(challenges);
+      if (this._loadingTimeout) clearTimeout(this._loadingTimeout);
       this.setState({ loading: false });
     } catch (error) {
       console.error('[AppShell] Failed to load contract data:', error);
+      if (this._loadingTimeout) clearTimeout(this._loadingTimeout);
       this.setState({ loading: false });
     }
   }
@@ -687,6 +700,7 @@ class AppShell extends Component {
             challenges: this.state.challenges,
             contractService: this.props.contractService,
             asProductGrid: true,
+            loading: this.state.loading,
           })
         ),
 

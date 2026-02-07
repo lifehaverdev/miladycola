@@ -4,6 +4,27 @@ import ChallengeCard from '../ui/ChallengeCard.js';
 
 const { isIpfsUri } = IpfsService;
 
+/**
+ * Format ETH values compactly for card display.
+ * < 1:     .0001  (no leading zero, 4 decimal places)
+ * >= 1:    1.001  (3 decimal places)
+ * >= 10:   10.01  (2 decimal places)
+ * >= 100:  100.1  (1 decimal place)
+ */
+function formatEthCompact(value) {
+  const n = parseFloat(value) || 0;
+  let formatted;
+  if (n >= 100) formatted = n.toFixed(1);
+  else if (n >= 10) formatted = n.toFixed(2);
+  else if (n >= 1) formatted = n.toFixed(3);
+  else formatted = n.toFixed(4);
+  // Strip leading zero for values < 1 (e.g. "0.0001" -> ".0001")
+  if (n < 1 && formatted.startsWith('0')) {
+    formatted = formatted.slice(1);
+  }
+  return formatted;
+}
+
 class ChallengeGrid extends Component {
   constructor(props) {
     super(props);
@@ -70,11 +91,11 @@ class ChallengeGrid extends Component {
       h('div', { className: 'product-slot__price' },
         h('div', { className: 'product-slot__price-row' },
           h('span', { className: 'product-slot__price-label' }, 'Appraisal'),
-          h('span', { className: 'product-slot__price-value' }, `${parseFloat(challenge.appraisalEth || 0).toFixed(3)} Ξ`)
+          h('span', { className: 'product-slot__price-value' }, `${formatEthCompact(challenge.appraisalEth)} Ξ`)
         ),
         h('div', { className: 'product-slot__price-row' },
           h('span', { className: 'product-slot__price-label' }, 'Attempts'),
-          h('span', { className: 'product-slot__price-value product-slot__price-value--pot' }, `${parseFloat(challenge.potEth || 0).toFixed(3)} Ξ`)
+          h('span', { className: 'product-slot__price-value product-slot__price-value--pot' }, `${formatEthCompact(challenge.potEth)} Ξ`)
         )
       )
     );
@@ -125,7 +146,7 @@ class ChallengeGrid extends Component {
         }
       }
 
-      const isEmpty = sortedChallenges.length === 0;
+      const isEmpty = sortedChallenges.length === 0 && !this.props.loading;
 
       return h('div', { className: 'product-display' },
         isEmpty && h('div', { className: 'machine-empty-sign' },
