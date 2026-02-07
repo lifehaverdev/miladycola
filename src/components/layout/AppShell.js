@@ -341,7 +341,10 @@ class AppShell extends Component {
   }
 
   async loadContractData() {
-    if (!this.props.colasseumIndexer?.initialized || !this.props.contractService?.initialized) return;
+    if (!this.props.colasseumIndexer?.initialized || !this.props.contractService?.initialized) {
+      this.setState({ loading: false });
+      return;
+    }
 
     try {
       this.setState({ loading: true });
@@ -783,6 +786,15 @@ class AppShell extends Component {
             'aria-label': 'MiladyCola on X',
           },
             h('span', null, '𝕏')
+          ),
+          h('a', {
+            className: 'social-pill',
+            href: 'https://github.com/lifehaverdev/miladycola',
+            target: '_blank',
+            rel: 'noreferrer',
+            'aria-label': 'MiladyCola on GitHub',
+          },
+            h('span', { className: 'github-icon', 'aria-hidden': 'true' })
           )
         )
       ),

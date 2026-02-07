@@ -13,11 +13,31 @@ interface IERC721 {
     ) external;
 }
 
+//
+//        ██████╗ ██████╗ ██╗      █████╗ ███████╗███████╗███████╗██╗   ██╗███╗   ███╗
+//       ██╔════╝██╔═══██╗██║     ██╔══██╗██╔════╝██╔════╝██╔════╝██║   ██║████╗ ████║
+//       ██║     ██║   ██║██║     ███████║███████╗███████╗█████╗  ██║   ██║██╔████╔██║
+//       ██║     ██║   ██║██║     ██╔══██║╚════██║╚════██║██╔══╝  ██║   ██║██║╚██╔╝██║
+//       ╚██████╗╚██████╔╝███████╗██║  ██║███████║███████║███████╗╚██████╔╝██║ ╚═╝ ██║
+//        ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝
+//
+//       Provably fair NFT trials. EIP-4788 beacon randomness. Groth16 ZK proofs.
+//       https://miladycola.net
+//
+
 /**
  * @title Colasseum
- * @notice A multi-tenant challenge protocol.
- * @dev Allows users to create provably fair trials with variable difficulty using ZK-SNARKs.
- *      Frontend uses event indexing for queries - contract is lean and clean.
+ * @author miladycola
+ * @notice Provably fair NFT challenge protocol using EIP-4788 beacon randomness and Groth16 ZK proofs.
+ *
+ * @dev Challengers deposit NFTs and set an appraisal that determines difficulty.
+ *      Participants enter trials by committing a secret hash and selecting a future
+ *      beacon timestamp. After the Deep Bake finality delay, participants can attempt
+ *      victory by generating a ZK proof that their preimage, combined with the beacon
+ *      root, falls below the difficulty threshold.
+ *
+ *      All state queries happen off-chain via event indexing. This contract is
+ *      intentionally lean — it settles, it pays, it moves NFTs. Nothing more.
  */
 contract Colasseum is ReentrancyGuard {
     // -------------------------------------------------------------------------
@@ -136,8 +156,10 @@ contract Colasseum is ReentrancyGuard {
     uint256 constant FIXED_TICKET_PRICE = 0.000000001 ether;
 
     // -------------------------------------------------------------------------
-    // 5. Constructor & Admin
+    // 5. Constructor & Governance
     // -------------------------------------------------------------------------
+
+    /// @notice Deploy the Colasseum with its oracle, verifier, and charity configuration.
     constructor(
         address _oracle,
         address _verifier,
@@ -154,6 +176,9 @@ contract Colasseum is ReentrancyGuard {
         witness = _witness;
     }
 
+    /// @notice Propose a new charity address and generosity rate. Requires witness confirmation via affirm().
+    /// @param _donations The proposed charity address
+    /// @param _generosity The proposed donation rate in basis points (500 = 5%)
     function honor(
         address _donations,
         uint256 _generosity
@@ -164,6 +189,7 @@ contract Colasseum is ReentrancyGuard {
         emit HonorPending(_donations, _generosity);
     }
 
+    /// @notice Witness confirms a pending charity proposal. Two-step to prevent unilateral changes.
     function affirm() external byReason {
         require(pendingHonor.donations != address(0), "No pending proposal");
         charity = pendingHonor;
@@ -171,6 +197,7 @@ contract Colasseum is ReentrancyGuard {
         delete pendingHonor;
     }
 
+    /// @notice Transfer the witness role to a new address. Only the current witness may bestow trust.
     function trust(
         address _witness
     ) external byReason {
@@ -182,6 +209,16 @@ contract Colasseum is ReentrancyGuard {
     // -------------------------------------------------------------------------
     // 6. Trial Creation
     // -------------------------------------------------------------------------
+
+    /// @notice Create a new trial by depositing an NFT and setting an appraisal.
+    /// @dev Higher appraisals mean lower difficulty thresholds, making victory harder to achieve.
+    ///      The challenger must deposit at least 5% of the appraisal as collateral.
+    ///      The charity fee percentage is locked at creation time to prevent manipulation.
+    /// @param _nftContract Address of the ERC721 contract (must be approved for transfer)
+    /// @param _nftId Token ID of the NFT being put up for trial
+    /// @param _appraisal The challenger's stated value, determines difficulty: (MAX_HASH / appraisal) * FIXED_COST
+    /// @param _lore Challenger-provided description for the trial
+    /// @return The newly created trial ID
     function challenge(
         address _nftContract,
         uint256 _nftId,
@@ -219,8 +256,19 @@ contract Colasseum is ReentrancyGuard {
     }
 
     // -------------------------------------------------------------------------
-    // 7. Entry Logic
+    // 7. Entry
     // -------------------------------------------------------------------------
+
+    /// @notice Enter an active trial by committing a secret hash and choosing a future beacon timestamp.
+    /// @dev The commitment binds the participant before randomness is revealed.
+    ///      The target timestamp must be in the future but within 24 hours.
+    ///      The Deep Bake finality delay (~13 min) is enforced by the oracle at claim time —
+    ///      victory() will revert until the beacon root is finalized.
+    ///      Cost is numChances * 0.000000001 ETH (1 gwei per chance).
+    /// @param _trialId The trial to enter
+    /// @param _commitment Poseidon hash of the participant's secret preimage
+    /// @param _targetTimestamp A future block timestamp for beacon randomness (must be within 24h)
+    /// @param _numChances Number of chances to purchase (multiplies probability)
     function valor(
         uint256 _trialId,
         uint256 _commitment,
@@ -254,18 +302,18 @@ contract Colasseum is ReentrancyGuard {
     // 8. Settlement
     // -------------------------------------------------------------------------
 
-    /**
-     * @notice Claim victory with a ZK proof.
-     * @dev Caller must provide the actual block timestamp used for beacon root lookup.
-     *      This timestamp must be >= targetTimestamp and within MAX_MISSED_SLOTS * 12 seconds.
-     *      The frontend finds this by searching actual blocks, not by guessing timestamps.
-     *
-     * @param _chanceId The ID of the chance being claimed
-     * @param _beaconTimestamp The actual block timestamp to use for beacon root lookup
-     * @param _pA ZK proof component A
-     * @param _pB ZK proof component B
-     * @param _pC ZK proof component C
-     */
+    /// @notice Claim victory with a Groth16 ZK proof.
+    /// @dev The caller provides the actual block timestamp whose beacon root was used in proof
+    ///      generation. This must be >= targetTimestamp and within MAX_MISSED_SLOTS * 12 seconds
+    ///      (handles missed beacon slots). The frontend searches actual blocks to find this.
+    ///
+    ///      On success: NFT transfers to victor, entry pool splits between charity and challenger,
+    ///      and the challenger's deposit escrow is returned.
+    /// @param _chanceId The chance being claimed
+    /// @param _beaconTimestamp The actual block timestamp used for beacon root lookup
+    /// @param _pA Groth16 proof element A
+    /// @param _pB Groth16 proof element B
+    /// @param _pC Groth16 proof element C
     function victory(
         uint256 _chanceId,
         uint256 _beaconTimestamp,
@@ -322,6 +370,9 @@ contract Colasseum is ReentrancyGuard {
         );
     }
 
+    /// @notice The challenger surrenders, withdrawing their NFT but forfeiting their deposit to charity.
+    /// @dev Participants can reclaim entry fees via perseverance() after this.
+    /// @param _trialId The trial to abandon
     function cowardice(
         uint256 _trialId
     ) public nonReentrant {
@@ -343,6 +394,9 @@ contract Colasseum is ReentrancyGuard {
         emit Surrender(_trialId);
     }
 
+    /// @notice Reclaim entry fees after a trial is cancelled.
+    /// @dev Batch refund — skips chances that aren't yours, already claimed, or already refunded.
+    /// @param _chanceIds Array of chance IDs to claim refunds for
     function perseverance(
         uint256[] calldata _chanceIds
     ) public nonReentrant {

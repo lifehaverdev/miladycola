@@ -397,6 +397,7 @@
     <h4>Contents</h4>
     <ul>
       <li><a href="#overview">Overview</a></li>
+      <li><a href="#contracts">Deployed Contracts</a></li>
       <li><a href="#actors">Actors</a></li>
       <li><a href="#lifecycle">Lifecycle</a></li>
       <li><a href="#randomness">Randomness</a></li>
@@ -415,6 +416,35 @@
     <li><strong>Commitment binding</strong> - Participants commit before randomness is revealed</li>
   </ol>
   <p>The protocol operates without centralized operators. Anyone can create trials, and outcomes are determined solely by cryptographic proofs.</p>
+
+  <h2 id="contracts">Deployed Contracts (Ethereum Mainnet)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Contract</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Colasseum</td>
+        <td><a href="https://etherscan.io/address/0xEBB82461b745d4be95C95beCa7095f0EC6c530AC" target="_blank" rel="noreferrer" style="color: var(--accent-secondary); text-decoration: none;"><code>0xEBB82461b745d4be95C95beCa7095f0EC6c530AC</code></a></td>
+      </tr>
+      <tr>
+        <td>Groth16Verifier</td>
+        <td><a href="https://etherscan.io/address/0x6451e5027EC265c117FbDA85579B337F459D3837" target="_blank" rel="noreferrer" style="color: var(--accent-secondary); text-decoration: none;"><code>0x6451e5027EC265c117FbDA85579B337F459D3837</code></a></td>
+      </tr>
+      <tr>
+        <td>BeaconRandomnessOracle</td>
+        <td><a href="https://etherscan.io/address/0xFac6478a6e9Cece4931b25a7d938c013F4568779" target="_blank" rel="noreferrer" style="color: var(--accent-secondary); text-decoration: none;"><code>0xFac6478a6e9Cece4931b25a7d938c013F4568779</code></a></td>
+      </tr>
+      <tr>
+        <td>EIP-4788 Beacon Roots</td>
+        <td><a href="https://etherscan.io/address/0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02" target="_blank" rel="noreferrer" style="color: var(--accent-secondary); text-decoration: none;"><code>0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02</code></a></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>All contracts are verified on Etherscan. The EIP-4788 Beacon Roots contract is an Ethereum protocol-level system contract, not deployed by this project.</p>
 
   <h2 id="actors">Actors</h2>
 

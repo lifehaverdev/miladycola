@@ -280,6 +280,14 @@ Where `MAX_HASH = 21888242871839275222246405745257275088548364400416034343698204
 | `HonorAffirmed` | Witness confirms charity change |
 | `TrustBestowed` | Witness address changed |
 
+## Deployed Contracts (Ethereum Mainnet)
+
+| Contract | Address |
+|----------|---------|
+| Colasseum | [`0xEBB82461b745d4be95C95beCa7095f0EC6c530AC`](https://etherscan.io/address/0xEBB82461b745d4be95C95beCa7095f0EC6c530AC) |
+| Groth16Verifier | [`0x6451e5027EC265c117FbDA85579B337F459D3837`](https://etherscan.io/address/0x6451e5027EC265c117FbDA85579B337F459D3837) |
+| BeaconRandomnessOracle | [`0xFac6478a6e9Cece4931b25a7d938c013F4568779`](https://etherscan.io/address/0xFac6478a6e9Cece4931b25a7d938c013F4568779) |
+
 ## Security Properties
 
 ### Commitment Integrity

@@ -422,6 +422,15 @@ class ChallengePageView extends Component {
               'aria-label': 'MiladyCola on X',
             },
               h('span', { className: 'social-pill__icon' }, '\uD835\uDD4F')
+            ),
+            h('a', {
+              className: 'social-pill',
+              href: 'https://github.com/lifehaverdev/miladycola',
+              target: '_blank',
+              rel: 'noreferrer',
+              'aria-label': 'MiladyCola on GitHub',
+            },
+              h('span', { className: 'github-icon', 'aria-hidden': 'true' })
             )
           )
         )

@@ -3,6 +3,9 @@ import { resolve } from 'path';
 
 export default defineConfig(({ command }) => ({
   base: '/',
+  esbuild: command === 'build' ? {
+    drop: ['console', 'debugger'],
+  } : {},
   optimizeDeps: {
     include: [
       'ethers',
@@ -18,9 +21,6 @@ export default defineConfig(({ command }) => ({
       include: [/node_modules/],
     },
     minify: 'esbuild',
-    esbuild: {
-      drop: ['console', 'debugger'],
-    },
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),

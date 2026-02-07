@@ -36,6 +36,10 @@ public/milady/
 # *.zkey
 # *.wasm
 
+# Internal planning docs (not for public repo)
+docs/plans/
+docs/LAUNCH_PLAN.md
+
 # Logs
 *.log
 npm-debug.log*

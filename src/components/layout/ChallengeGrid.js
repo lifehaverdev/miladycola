@@ -125,7 +125,16 @@ class ChallengeGrid extends Component {
         }
       }
 
+      const isEmpty = sortedChallenges.length === 0;
+
       return h('div', { className: 'product-display' },
+        isEmpty && h('div', { className: 'machine-empty-sign' },
+          h('div', { className: 'machine-empty-sign__content' },
+            h('span', { className: 'machine-empty-sign__icon' }, '🍾'),
+            h('p', { className: 'machine-empty-sign__text' }, 'Machine Empty!'),
+            h('p', { className: 'machine-empty-sign__subtext' }, 'Stock a prize to get started')
+          )
+        ),
         h('div', { className: 'product-grid' }, slots),
         totalPages > 1 && h('div', { className: 'product-pagination' },
           h('button', {
@@ -144,6 +153,7 @@ class ChallengeGrid extends Component {
     }
 
     // Legacy card grid mode
+    const legacyIsEmpty = challenges.length === 0;
     return h('section', { className: 'challenge-grid' },
       h('header', null,
         h('div', null,
@@ -151,7 +161,7 @@ class ChallengeGrid extends Component {
         )
       ),
       h('div', { className: 'challenge-list-grid' },
-        isEmpty
+        legacyIsEmpty
           ? h('p', { className: 'muted' }, 'No active challenges at the moment.')
           : challenges.map((challenge, i) =>
               h(ChallengeCard, {

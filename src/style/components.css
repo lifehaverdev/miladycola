@@ -169,6 +169,7 @@
 
 /* --- Product Display (grid + pagination) --- */
 .product-display {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -179,6 +180,56 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     min-height: 280px;
+}
+
+/* Empty machine sign */
+.machine-empty-sign {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.machine-empty-sign__content {
+    background: linear-gradient(180deg, #ffe066 0%, #ffcc00 50%, #e6b800 100%);
+    border: 3px solid #996600;
+    border-radius: 8px;
+    padding: 16px 24px;
+    text-align: center;
+    box-shadow:
+        0 4px 8px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.4);
+    transform: rotate(-3deg);
+    animation: sign-sway 3s ease-in-out infinite;
+}
+
+.machine-empty-sign__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.machine-empty-sign__text {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #4a3300;
+    margin: 0;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.machine-empty-sign__subtext {
+    font-size: 0.75rem;
+    color: #665500;
+    margin: 4px 0 0;
+}
+
+@keyframes sign-sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(2deg); }
 }
 
 .product-pagination {
@@ -768,6 +819,9 @@
     padding: 12px 16px;
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    gap: 12px;
 }
 
 /* ============================================
@@ -2092,6 +2146,8 @@
 .challenge-wizard__panel {
     width: min(640px, 100%);
     min-width: 320px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
     background: var(--cola-panel);
     border-radius: 24px;
     border: 1px solid var(--cola-border);
@@ -2905,6 +2961,7 @@
     align-items: center;
     text-decoration: none;
     font-size: 1.1rem;
+    color: var(--cola-secondary);
     transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
@@ -2913,6 +2970,19 @@
     transform: translateY(-2px);
     border-color: rgba(255, 255, 255, 0.6);
     color: var(--cola-primary);
+}
+
+.github-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: currentColor;
+    -webkit-mask-image: url('/assets/github-mark.svg');
+    mask-image: url('/assets/github-mark.svg');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
 }
 
 /* --- Prize Confirm Modal --- */
