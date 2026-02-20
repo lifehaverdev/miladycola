@@ -4,6 +4,9 @@ import ChallengeCard from '../ui/ChallengeCard.js';
 
 const { isIpfsUri } = IpfsService;
 
+// TEMPORARY: flip to true to take machine down for maintenance
+const OUT_OF_ORDER = false;
+
 /**
  * Format ETH values compactly for card display.
  * < 1:     .0001  (no leading zero, 4 decimal places)
@@ -149,15 +152,24 @@ class ChallengeGrid extends Component {
       const isEmpty = sortedChallenges.length === 0 && !this.props.loading;
 
       return h('div', { className: 'product-display' },
-        isEmpty && h('div', { className: 'machine-empty-sign' },
-          h('div', { className: 'machine-empty-sign__content' },
-            h('span', { className: 'machine-empty-sign__icon' }, '🍾'),
-            h('p', { className: 'machine-empty-sign__text' }, 'Machine Empty!'),
-            h('p', { className: 'machine-empty-sign__subtext' }, 'Stock a prize to get started')
-          )
-        ),
-        h('div', { className: 'product-grid' }, slots),
-        totalPages > 1 && h('div', { className: 'product-pagination' },
+        OUT_OF_ORDER
+          ? h('div', { className: 'machine-empty-sign' },
+              h('div', { className: 'machine-empty-sign__content' },
+                h('span', { className: 'machine-empty-sign__icon' }, '\u26A0\uFE0F'),
+                h('p', { className: 'machine-empty-sign__text' }, 'OUT OF ORDER'),
+                h('p', { className: 'machine-empty-sign__subtext' }, 'Machine is down for maintenance. If you have an active challenge, please cancel it and claim refunds for your entries.')
+              )
+            )
+          : isEmpty && h('div', { className: 'machine-empty-sign' },
+              h('div', { className: 'machine-empty-sign__content' },
+                h('span', { className: 'machine-empty-sign__icon' }, '\uD83C\uDF7E'),
+                h('p', { className: 'machine-empty-sign__text' }, 'Machine Empty!'),
+                h('p', { className: 'machine-empty-sign__subtext' }, 'Stock a prize to get started')
+              )
+            ),
+        /* {OUT_OF_ORDER ? null : product grid} */
+        !OUT_OF_ORDER && h('div', { className: 'product-grid' }, slots),
+        !OUT_OF_ORDER && totalPages > 1 && h('div', { className: 'product-pagination' },
           h('button', {
             className: 'pagination-btn',
             disabled: !hasPrev,

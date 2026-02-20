@@ -154,7 +154,55 @@ Comprehensive security tests proving the verifier rejects invalid proofs:
 
 ---
 
-## 4. Known Limitations
+## 4. Mass Statistical Valor Test (1000 Trials)
+
+A mass volume test was conducted to prove the **full on-chain pipeline** works correctly under load — not just the circuit in isolation, but `oracle → 128-bit split → public signals → Groth16 verifier → settlement`.
+
+### Method
+
+1. Generated 1000 random trials using identical production parameters (0.39 ETH appraisal, 3,900,001 chances, ~1% odds)
+2. Evaluated win/loss via Poseidon hash in JS — found **7 wins** (0.70%)
+3. Generated real Groth16 proofs for all 7 wins using the production circuit (`challenge.wasm`, `challenge_final.zkey`)
+4. Fed every proof through a Foundry test deploying the **real `Groth16Verifier`** (not a mock) + `MockBeaconOracle` + `Colasseum`
+5. Each win followed the full protocol flow: `challenge() → valor() → setMockRootOverride() → warp → victory()`
+
+### Results
+
+| Test | Result |
+|------|--------|
+| `test_allWinsVerifiedOnChain` | **7/7 JS-wins verified** by real Groth16Verifier |
+| `test_wrongBeaconRootRejects` | Wrong beacon root → "Invalid ZK Proof" revert |
+| `test_wrongDifficultyRejects` | Wrong difficulty → "Invalid ZK Proof" revert |
+| `test_difficultyCalculationMatches` | JS difficulty = Solidity difficulty (exact match) |
+
+Difficulty confirmed identical: `56123699671382756980118989090403269457816318975425729086405000000000`
+
+### Batch-of-12 Histogram ("How unusual is 2/12?")
+
+10,000 simulated batches of 12 entries at 1% odds:
+
+```
+ 0 wins: 88.51%
+ 1 win:  10.76%
+ 2 wins:  0.71%
+ 3 wins:  0.02%
+```
+
+**P(2+ wins in 12 at 1%) = 0.62%** (binomial exact). That's roughly 1-in-161 — rare, but well within normal probability. The production result of 2 wins from 12 attempts is a legitimate statistical outcome.
+
+### How to Reproduce
+
+```bash
+# Generate fresh fixtures (creates contracts/test/MassValorFixtures.sol)
+node audit/proof-of-tim-clancy-network-blessed/mass-valor-generator.mjs
+
+# Run Foundry tests
+cd contracts && forge test --match-contract MassValorTest -vvv
+```
+
+---
+
+## 5. Known Limitations
 
 ### Field Overflow at Extreme Spend Levels
 
@@ -176,7 +224,7 @@ At the overflow boundary, win probability drops from ~100% to ~0%. See `overflow
 
 ---
 
-## 5. Test Scripts
+## 6. Test Scripts
 
 All scripts can be run with `node <script>`:
 
@@ -186,6 +234,7 @@ All scripts can be run with `node <script>`:
 | `overflow-proof.mjs` | Mathematical proof of the field overflow edge case |
 | `monte-carlo.mjs` | 1M-sample Monte Carlo confirming claimed vs actual odds |
 | `edge-cases.mjs` | Boundary condition analysis and secondary findings |
+| `mass-valor-generator.mjs` | 1000-trial fixture generator with Groth16 proofs and batch-of-12 histogram |
 
 Solidity tests (run with `forge test`):
 
@@ -193,18 +242,22 @@ Solidity tests (run with `forge test`):
 |------|---------|
 | `contracts/test/VerifyRealWin.t.sol` | Verifies actual winning proof on-chain |
 | `contracts/test/VerifierSecurity.t.sol` | Proves verifier rejects all invalid proofs |
+| `contracts/test/MassValor.t.sol` | Mass volume test: 7 real proofs through full on-chain pipeline |
+| `contracts/test/MassValorFixtures.sol` | Auto-generated fixture data (beacon roots, commitments, proofs) |
 
 ---
 
-## 6. Conclusion
+## 7. Conclusion
 
-The Colasseum proof system delivers the odds it claims. The ZK circuit correctly implements a commit-reveal lottery with Poseidon hashing and Groth16 verification. The first victory at ~1% odds was a legitimate probabilistic outcome, verified through:
+The Colasseum proof system delivers the odds it claims. The ZK circuit correctly implements a commit-reveal lottery with Poseidon hashing and Groth16 verification. The victories at ~1% odds were legitimate probabilistic outcomes, verified through:
 
 1. Exact mathematical derivation from immutable on-chain state
 2. Monte Carlo simulation with 1M samples (z-score within normal range)
 3. On-chain Groth16 proof verification against the deployed verifier
 4. Circuit source-to-artifact verification (identical verification keys)
 5. Comprehensive tamper-rejection testing (all invalid proofs rejected)
+6. Mass volume test: 1000 trials, 7 real Groth16 proofs, all verified through the full on-chain pipeline with the real verifier
+7. Batch-of-12 analysis: P(2+ wins in 12 at 1%) = 0.62% — rare but legitimate
 
 The odds are real.
 

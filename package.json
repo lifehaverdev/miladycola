@@ -28,7 +28,9 @@
   },
   "devDependencies": {
     "buffer": "^6.0.3",
+    "circomlibjs": "^0.1.7",
     "puppeteer": "^21.0.0",
+    "snarkjs": "^0.7.6",
     "util": "^0.12.5",
     "vite": "^4.4.5"
   }
